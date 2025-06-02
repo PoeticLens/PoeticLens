@@ -1,0 +1,3001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libby Nessworthy - Poetry Archive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: url('https://cdn.leonardo.ai/users/550ed1ad-9fba-4d78-b281-b013ab57e8f0/generations/0cb726c8-5c8b-409d-b036-12ae2f9e570a/Leonardo_Phoenix_10_create_a_serene_and_vibrant_webpage_banner_1.jpg') center/cover fixed, rgba(232, 245, 232, 0.9);
+            min-height: 100vh;
+            color: #2d5016;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.3), rgba(90, 138, 58, 0.2));
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(13, 79, 92, 0.9);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: #7dd3fc;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-badge {
+            width: 80px;
+            height: 80px;
+            background-image: url('https://cdn.leonardo.ai/users/550ed1ad-9fba-4d78-b281-b013ab57e8f0/generations/247c53c8-02f0-477a-8a24-6cf703ac8056/variations/Default_a_highly_detailed_expressive_and_interpretative_rough_0_247c53c8-02f0-477a-8a24-6cf703ac8056_0.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: randomSpin 8s ease-in-out infinite;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logo-badge:hover {
+            animation: continuousSpin 1s linear infinite;
+        }
+
+        @keyframes randomSpin {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(0deg); }
+            30% { transform: rotate(360deg); }
+            50% { transform: rotate(360deg); }
+            75% { transform: rotate(360deg); }
+            80% { transform: rotate(720deg); }
+            100% { transform: rotate(720deg); }
+        }
+
+        @keyframes continuousSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: none;
+            border: 2px solid #7dd3fc;
+            color: #7dd3fc;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:hover {
+            background: #7dd3fc;
+            color: #0d4f5c;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn-leaf {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0;
+            transform: scale(0.5) rotate(-45deg);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .nav-btn:hover .nav-btn-leaf {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+            animation: leafCycle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes leafCycle {
+            0%, 33% {
+                background-image: url('https://cdn.leonardo.ai/users/550ed1ad-9fba-4d78-b281-b013ab57e8f0/generations/90eebbc0-16d8-416a-a0d5-b523d08a7f5c/variations/Default_A_vibrantly_colored_animated_leaf_with_intricate_veins_3_90eebbc0-16d8-416a-a0d5-b523d08a7f5c_0.png');
+                transform: scale(1) rotate(0deg);
+            }
+            34%, 66% {
+                background-image: url('https://cdn.leonardo.ai/users/550ed1ad-9fba-4d78-b281-b013ab57e8f0/generations/bfdb5525-80be-42a3-a089-8adf683db74a/variations/Default_A_vibrantly_colored_animated_leaf_with_intricate_veins_2_bfdb5525-80be-42a3-a089-8adf683db74a_0.png');
+                transform: scale(1.1) rotate(120deg);
+            }
+            67%, 100% {
+                background-image: url('https://cdn.leonardo.ai/users/550ed1ad-9fba-4d78-b281-b013ab57e8f0/generations/55365eb0-13d6-4127-92ae-43879ce919b3/variations/Default_A_vibrantly_colored_animated_leaf_with_intricate_veins_1_55365eb0-13d6-4127-92ae-43879ce919b3_0.png');
+                transform: scale(1) rotate(240deg);
+            }
+        }
+
+        /* Announcement bar */
+        .announcement {
+            background: #7dd3fc;
+            color: #0d4f5c;
+            text-align: center;
+            padding: 0.5rem;
+            margin-top: 70px;
+            font-weight: bold;
+        }
+
+        /* Main content */
+        .main-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: calc(100vh - 120px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+
+        /* Page styles */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Introduction Page */
+        .intro-page {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .intro-title {
+            font-size: 3rem;
+            color: #0d4f5c;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .intro-subtitle {
+            font-size: 1.5rem;
+            color: #0891b2;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Book styles */
+        .book-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 600px;
+            perspective: 1000px;
+        }
+
+        .book {
+            width: 400px;
+            height: 600px;
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .book-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://octaneseating.com/blog/wp-content/uploads/2023/12/Pull-Up-Leather.png') center/cover, #8B4513;
+            border-radius: 8px;
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.3),
+                inset 0 0 20px rgba(0,0,0,0.2),
+                inset -5px 0 15px rgba(0,0,0,0.1);
+            transform-origin: left;
+            transition: transform 0.8s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #FFD700;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .book.open .book-cover {
+            transform: rotateY(-180deg);
+        }
+
+        .book-cover-content {
+            position: relative;
+            z-index: 3;
+            transition: opacity 0.3s ease;
+        }
+
+        .book.open .book-cover-content {
+            opacity: 0;
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(139, 69, 19, 0.6) 0%,
+                rgba(160, 82, 45, 0.4) 25%,
+                rgba(139, 69, 19, 0.7) 50%,
+                rgba(101, 67, 33, 0.6) 75%,
+                rgba(139, 69, 19, 0.7) 100%
+            );
+            z-index: 1;
+        }
+
+        .book-cover > * {
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+        }
+
+        .book-cover h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .book-cover h3 {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .book-cover p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .book-pages {
+            position: absolute;
+            width: 95%;
+            height: 95%;
+            background: #f9f9f9;
+            border-radius: 0 8px 8px 0;
+            left: 5%;
+            top: 2.5%;
+            padding: 2rem;
+            overflow-y: auto;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease 0.3s;
+            z-index: 1;
+        }
+
+        .book.open .book-pages {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .poetry-entry {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            border-left: 4px solid #7dd3fc;
+            background: rgba(125, 211, 252, 0.1);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .poetry-title {
+            font-size: 1.3rem;
+            color: #0d4f5c;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .poetry-content {
+            line-height: 1.8;
+            font-style: italic;
+            white-space: pre-line;
+        }
+
+        .poetry-author {
+            text-align: right;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #0891b2;
+        }
+
+        .poetry-image {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Community Poetry Section */
+        .community-poetry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .community-poetry-header h2 {
+            color: #0d4f5c;
+            margin: 0;
+        }
+
+        .add-poetry-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-poetry-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+
+        .poetry-creation-form {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .poetry-creation-form.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .poetry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .poetry-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-left: 4px solid #7dd3fc;
+            cursor: pointer;
+        }
+
+        .poetry-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+            border-left-color: #0891b2;
+        }
+
+        .poetry-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .poetry-card-title {
+            font-size: 1.3rem;
+            color: #0d4f5c;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .poetry-card-author {
+            color: #0891b2;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .poetry-card-content {
+            color: #2d5016;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            max-height: 150px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .poetry-card-image {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            float: right;
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .poetry-card-date {
+            color: #6c757d;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Forms */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #0d4f5c;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #7dd3fc;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #7dd3fc;
+            color: #0d4f5c;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            background: #0891b2;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn-leaf {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0;
+            transform: scale(0.5) rotate(-45deg);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .submit-btn:hover .submit-btn-leaf {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+            animation: leafCycle 1.5s ease-in-out infinite;
+        }
+
+        /* Image preview styles */
+        .image-preview {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .image-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+
+        .remove-image-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-image-btn:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        /* Shop styles */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .shop-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .shop-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .shop-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .shop-item h3 {
+            color: #0d4f5c;
+            margin-bottom: 0.5rem;
+        }
+
+        .shop-item .price {
+            font-size: 1.2rem;
+            color: #7dd3fc;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        /* Admin styles - Professional Dark Theme */
+        .admin-panel {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 0;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+            color: #e0e0e0;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #263238, #37474f);
+            color: #ffffff;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 2px solid #455a64;
+        }
+
+        .admin-header h2 {
+            margin: 0;
+            font-size: 2rem;
+            color: #ffffff;
+        }
+
+        .admin-header p {
+            color: #b0bec5;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .admin-tabs {
+            display: flex;
+            background: #2c2c2c;
+            border-bottom: 1px solid #404040;
+            overflow-x: auto;
+        }
+
+        .admin-tab {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #b0b0b0;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+            min-width: 150px;
+            border-right: 1px solid #404040;
+        }
+
+        .admin-tab:hover {
+            background: #3c3c3c;
+            color: #ffffff;
+        }
+
+        .admin-tab.active {
+            background: #1976d2;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .admin-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #2196f3;
+        }
+
+        .admin-tab-content {
+            padding: 2rem;
+            display: none;
+            max-height: 70vh;
+            overflow-y: auto;
+            background: #1e1e1e;
+        }
+
+        .admin-tab-content.active {
+            display: block;
+        }
+
+        .admin-form-section {
+            background: #262626;
+            border: 1px solid #404040;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-form-section h4 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid #404040;
+            padding-bottom: 0.5rem;
+        }
+
+        .admin-form-section .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .admin-form-section .form-group label {
+            color: #b0b0b0;
+            font-weight: normal;
+            font-size: 0.9rem;
+        }
+
+        .admin-form-section .form-group input,
+        .admin-form-section .form-group textarea {
+            background: #333333;
+            border: 1px solid #555555;
+            color: #ffffff;
+            padding: 0.8rem;
+        }
+
+        .admin-form-section .form-group input:focus,
+        .admin-form-section .form-group textarea:focus {
+            border-color: #2196f3;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+        }
+
+        .admin-form-section .submit-btn {
+            background: #1976d2;
+            color: #ffffff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .admin-form-section .submit-btn:hover {
+            background: #1565c0;
+            transform: none;
+        }
+
+        .admin-items-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .admin-item-card {
+            background: #2a2a2a;
+            border: 1px solid #404040;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .admin-item-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border-color: #555555;
+        }
+
+        .admin-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-item-title {
+            font-weight: bold;
+            color: #ffffff;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .admin-item-author {
+            color: #b0b0b0;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+
+        .admin-item-content {
+            margin: 0.5rem 0;
+            color: #d0d0d0;
+            max-height: 100px;
+            overflow: hidden;
+            position: relative;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .admin-item-image {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            float: right;
+            margin-left: 1rem;
+            border: 1px solid #404040;
+        }
+
+        .admin-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .admin-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .admin-btn.edit {
+            background: #ff9800;
+            color: #ffffff;
+        }
+
+        .admin-btn.edit:hover {
+            background: #f57c00;
+        }
+
+        .admin-btn.delete {
+            background: #f44336;
+            color: #ffffff;
+        }
+
+        .admin-btn.delete:hover {
+            background: #d32f2f;
+        }
+
+        .admin-btn.save {
+            background: #4caf50;
+            color: #ffffff;
+        }
+
+        .admin-btn.save:hover {
+            background: #388e3c;
+        }
+
+        .admin-btn.cancel {
+            background: #757575;
+            color: #ffffff;
+        }
+
+        .admin-btn.cancel:hover {
+            background: #616161;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1976d2, #2196f3);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #1565c0;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .logout-section {
+            border-top: 1px solid #404040;
+            padding: 1.5rem 2rem;
+            background: #262626;
+            text-align: center;
+        }
+
+        .logout-section .submit-btn {
+            background: #f44336;
+            color: #ffffff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .logout-section .submit-btn:hover {
+            background: #d32f2f;
+            transform: none;
+        }
+
+        .tab-icon {
+            margin-right: 0.5rem;
+        }
+
+        .cooldown-message {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        /* Security notification */
+        .security-notice {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Floating elements */
+        .floating-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .floating-leaf {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: float 8s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        .floating-leaf.leaf1 {
+            background-image: url('https://cdn.leonardo.ai/users/550ed1ad-9fba-4d78-b281-b013ab57e8f0/generations/90eebbc0-16d8-416a-a0d5-b523d08a7f5c/variations/Default_A_vibrantly_colored_animated_leaf_with_intricate_veins_3_90eebbc0-16d8-416a-a0d5-b523d08a7f5c_0.png');
+        }
+
+        .floating-leaf.leaf2 {
+            background-image: url('https://cdn.leonardo.ai/users/550ed1ad-9fba-4d78-b281-b013ab57e8f0/generations/bfdb5525-80be-42a3-a089-8adf683db74a/variations/Default_A_vibrantly_colored_animated_leaf_with_intricate_veins_2_bfdb5525-80be-42a3-a089-8adf683db74a_0.png');
+        }
+
+        .floating-leaf.leaf3 {
+            background-image: url('https://cdn.leonardo.ai/users/550ed1ad-9fba-4d78-b281-b013ab57e8f0/generations/55365eb0-13d6-4127-92ae-43879ce919b3/variations/Default_A_vibrantly_colored_animated_leaf_with_intricate_veins_1_55365eb0-13d6-4127-92ae-43879ce919b3_0.png');
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1); 
+                opacity: 0.7;
+            }
+            25% { 
+                transform: translateY(-15px) rotate(5deg) scale(1.1); 
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(10deg) scale(1); 
+                opacity: 0.9;
+            }
+            75% { 
+                transform: translateY(-15px) rotate(-5deg) scale(1.1); 
+                opacity: 0.8;
+            }
+        }
+
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            background: linear-gradient(135deg, #7dd3fc, #0891b2);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            z-index: 1001;
+            cursor: pointer;
+            transform: translateX(400px);
+            transition: all 0.5s ease;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification:hover {
+            transform: translateX(0) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+        }
+
+        .notification-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notification-content {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .datastore-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(40, 167, 69, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .datastore-status.error {
+            background: rgba(220, 53, 69, 0.9);
+        }
+
+        @media (max-width: 768px) {
+            .nav-buttons {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .intro-title {
+                font-size: 2rem;
+            }
+            
+            .book {
+                width: 300px;
+                height: 450px;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+
+            .poetry-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .community-poetry-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating elements -->
+    <div class="floating-elements">
+        <div class="floating-leaf leaf1" style="left: 5%; top: 10%; animation-delay: 0s;"></div>
+        <div class="floating-leaf leaf2" style="left: 85%; top: 15%; animation-delay: 1s;"></div>
+        <div class="floating-leaf leaf3" style="left: 15%; top: 60%; animation-delay: 2s;"></div>
+        <div class="floating-leaf leaf1" style="left: 75%; top: 70%; animation-delay: 3s;"></div>
+        <div class="floating-leaf leaf2" style="left: 25%; top: 25%; animation-delay: 4s;"></div>
+        <div class="floating-leaf leaf3" style="left: 65%; top: 40%; animation-delay: 5s;"></div>
+        <div class="floating-leaf leaf1" style="left: 45%; top: 80%; animation-delay: 6s;"></div>
+        <div class="floating-leaf leaf2" style="left: 90%; top: 50%; animation-delay: 7s;"></div>
+        <div class="floating-leaf leaf3" style="left: 10%; top: 35%; animation-delay: 8s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-badge"></div>
+                <span>Libby's Poetry Garden</span>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="showPage('intro')">
+                    Home
+                    <div class="nav-btn-leaf"></div>
+                </button>
+                <button class="nav-btn" onclick="showPage('book')">
+                    Libby's Poetry
+                    <div class="nav-btn-leaf"></div>
+                </button>
+                <button class="nav-btn" onclick="showPage('user-book')">
+                    Community Poetry
+                    <div class="nav-btn-leaf"></div>
+                </button>
+                <button class="nav-btn" onclick="showPage('submit')">
+                    Submit Poetry
+                    <div class="nav-btn-leaf"></div>
+                </button>
+                <button class="nav-btn" onclick="showPage('shop')">
+                    Shop
+                    <div class="nav-btn-leaf"></div>
+                </button>
+                <button class="nav-btn" onclick="showPage('admin-login')">
+                    Admin
+                    <div class="nav-btn-leaf"></div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Announcement Bar -->
+    <div class="announcement" id="announcement">
+        Welcome to Libby's Poetry Garden - Where Nature Meets Words 🌸
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <div class="notification-title">
+            <span>🌸</span>
+            <span id="notification-title-text">New Poetry Added!</span>
+        </div>
+        <div class="notification-content" id="notification-content">
+            Click to view the new poem in the Community Collection
+        </div>
+    </div>
+
+    <!-- Datastore Status -->
+    <div id="datastore-status" class="datastore-status">
+        📊 Initializing...
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Introduction Page -->
+        <div id="intro" class="page active">
+            <div class="intro-page">
+                <h1 class="intro-title">Libby Nessworthy</h1>
+                <h2 class="intro-subtitle">Poet of Nature & Love</h2>
+                <div class="intro-text" id="intro-text">
+                    Welcome to my poetic sanctuary where the whispers of nature dance with the melodies of love. I am Libby Nessworthy, a passionate poet who finds inspiration in the rustling leaves, blooming flowers, and the eternal dance between earth and heart.
+
+                    My journey began in the quiet moments of dawn, when dewdrops held the secrets of the universe, and in the gentle embrace of twilight, where love stories are written in starlight. Each poem is a bridge between the natural world and the depths of human emotion.
+
+                    Here, you'll discover verses that celebrate the changing seasons of both nature and the heart, exploring how love grows like wildflowers and how our souls mirror the rhythms of the earth. Join me in this garden of words where every stanza blooms with authenticity and wonder.
+                </div>
+            </div>
+        </div>
+
+        <!-- Poetry Book Page -->
+        <div id="book" class="page">
+            <div class="book-container">
+                <div class="book" id="poetry-book" onclick="toggleBook('poetry-book')">
+                    <div class="book-cover">
+                        <div class="book-cover-content">
+                            <h2>Libby Nessworthy</h2>
+                            <h3>Poetry Archive</h3>
+                            <p style="margin-top: 2rem; font-size: 1rem;">Click to open</p>
+                        </div>
+                    </div>
+                    <div class="book-pages" id="book-content">
+                        <!-- Poetry entries will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Poetry Book Page -->
+        <div id="user-book" class="page">
+            <div class="community-poetry-header">
+                <h2>Community Poetry Collection</h2>
+                <button class="add-poetry-btn" onclick="togglePoetryCreationForm()">
+                    ✨ Add New Poetry
+                </button>
+            </div>
+
+            <!-- Poetry Creation Form -->
+            <div id="poetry-creation-form" class="poetry-creation-form">
+                <h3 style="text-align: center; margin-bottom: 1.5rem; color: #0d4f5c;">Create New Poetry Entry</h3>
+                <form id="community-poetry-form">
+                    <div class="form-group">
+                        <label for="community-poet-name">Author Name:</label>
+                        <input type="text" id="community-poet-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="community-poem-title">Poem Title:</label>
+                        <input type="text" id="community-poem-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="community-poem-content">Poem Content:</label>
+                        <textarea id="community-poem-content" required placeholder="Share your beautiful words here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="community-poem-image">Add an Image (optional):</label>
+                        <input type="file" id="community-poem-image" accept="image/*">
+                        <div id="community-poem-image-preview" class="image-preview"></div>
+                    </div>
+                    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                        <button type="button" class="submit-btn" style="background: #6c757d;" onclick="togglePoetryCreationForm()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="submit-btn">
+                            Save Poetry 🌸
+                            <div class="submit-btn-leaf"></div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="book-container">
+                <div class="book" id="user-poetry-book" onclick="toggleBook('user-poetry-book')">
+                    <div class="book-cover">
+                        <div class="book-cover-content">
+                            <h2>Community</h2>
+                            <h3>Poetry Collection</h3>
+                            <p style="margin-top: 2rem; font-size: 1rem;">Click to open</p>
+                        </div>
+                    </div>
+                    <div class="book-pages" id="user-book-content">
+                        <!-- User poetry entries will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Poetry Grid View -->
+            <div class="poetry-grid" id="poetry-grid">
+                <!-- Poetry cards will be populated here -->
+            </div>
+        </div>
+
+        <!-- Poetry Submission Page -->
+        <div id="submit" class="page">
+            <div class="form-container">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #2d5016;">Share Your Poetry</h2>
+                <div id="cooldown-notice" class="cooldown-message" style="display: none;">
+                    Please wait before submitting another poem. Cooldown time remaining: <span id="cooldown-timer"></span>
+                </div>
+                <form id="poetry-form">
+                    <div class="form-group">
+                        <label for="poet-name">Your Name:</label>
+                        <input type="text" id="poet-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="poem-title">Poem Title:</label>
+                        <input type="text" id="poem-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="poem-content">Your Poem:</label>
+                        <textarea id="poem-content" required placeholder="Share your beautiful words here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="poem-image">Add an Image (optional):</label>
+                        <input type="file" id="poem-image" accept="image/*">
+                        <div id="poem-image-preview" class="image-preview"></div>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        Plant Your Poetry 🌱
+                        <div class="submit-btn-leaf"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Shop Page -->
+        <div id="shop" class="page">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #2d5016;">Poetry Shop</h2>
+            <div class="shop-grid" id="shop-items">
+                <!-- Shop items will be populated here -->
+            </div>
+        </div>
+
+        <!-- Admin Login Page -->
+        <div id="admin-login" class="page">
+            <div class="form-container">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #2d5016;">Admin Login</h2>
+                <div class="security-notice">
+                    🔒 This admin panel uses enhanced security measures to protect against unauthorized access.
+                </div>
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label for="admin-username">Username:</label>
+                        <input type="text" id="admin-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-password">Password:</label>
+                        <input type="password" id="admin-password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        Login
+                        <div class="submit-btn-leaf"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="admin-panel" class="page">
+            <div class="admin-panel">
+                <!-- Admin Header -->
+                <div class="admin-header">
+                    <h2>⚙️ Poetry Garden Admin Panel</h2>
+                    <p>Professional content management with Firebase & localStorage</p>
+                </div>
+                
+                <!-- Admin Tabs -->
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="switchAdminTab('overview', this)">
+                        <span class="tab-icon">📊</span>Overview
+                    </button>
+                    <button class="admin-tab" onclick="switchAdminTab('libby-poetry', this)">
+                        <span class="tab-icon">📖</span>Libby's Poetry
+                    </button>
+                    <button class="admin-tab" onclick="switchAdminTab('community-poetry', this)">
+                        <span class="tab-icon">🌸</span>Community Poetry
+                    </button>
+                    <button class="admin-tab" onclick="switchAdminTab('shop-items', this)">
+                        <span class="tab-icon">🛍️</span>Shop Items
+                    </button>
+                    <button class="admin-tab" onclick="switchAdminTab('settings', this)">
+                        <span class="tab-icon">⚙️</span>Settings
+                    </button>
+                </div>
+
+                <!-- Overview Tab -->
+                <div id="admin-tab-overview" class="admin-tab-content active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number" id="stat-libby-poems">0</span>
+                            <span class="stat-label">Libby's Poems</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="stat-community-poems">0</span>
+                            <span class="stat-label">Community Poems</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="stat-shop-items">0</span>
+                            <span class="stat-label">Shop Items</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="stat-total-content">0</span>
+                            <span class="stat-label">Total Content</span>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-form-section">
+                        <h4>🚀 Quick Actions</h4>
+                        <div class="admin-buttons">
+                            <button class="admin-btn" style="background: #007bff; color: white;" onclick="switchAdminTab('libby-poetry')">
+                                Add New Poem
+                            </button>
+                            <button class="admin-btn" style="background: #28a745; color: white;" onclick="switchAdminTab('shop-items')">
+                                Add Shop Item
+                            </button>
+                            <button class="admin-btn" style="background: #ffc107; color: #212529;" onclick="switchAdminTab('settings')">
+                                Update Settings
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="admin-form-section">
+                        <h4>🔥 Firebase & Local Storage Status</h4>
+                        <div style="background: #333; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.9rem;">
+                            <div>🔥 Firebase: <span id="firebase-status" style="color: #ffc107;">Connecting...</span></div>
+                            <div>📊 Local Storage: <span style="color: #28a745;">Active</span></div>
+                            <div>🌐 Network: <span id="network-status" style="color: #28a745;">Online</span></div>
+                            <div style="margin: 0.5rem 0; border-top: 1px solid #555; padding-top: 0.5rem;">
+                                <div>📁 Libby Poetry: <span id="datastore-libby-count">0</span> entries</div>
+                                <div>🌸 Community Poetry: <span id="datastore-community-count">0</span> entries</div>
+                                <div>🛍️ Shop Items: <span id="datastore-shop-count">0</span> entries</div>
+                                <div>⚙️ Settings: <span id="datastore-settings-count">0</span> configurations</div>
+                            </div>
+                            <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #555;">
+                                <strong>Status: <span id="datastore-status-text" style="color: #28a745;">Ready</span></strong>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <button class="admin-btn" style="background: #17a2b8; color: white;" onclick="checkFirebaseHealth()">
+                                🏥 Check Firebase Health
+                            </button>
+                            <button class="admin-btn" style="background: #6f42c1; color: white;" onclick="exportData()">
+                                📤 Export Data
+                            </button>
+                            <button class="admin-btn" style="background: #fd7e14; color: white;" onclick="syncToFirebase()">
+                                🔄 Force Firebase Sync
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Libby's Poetry Tab -->
+                <div id="admin-tab-libby-poetry" class="admin-tab-content">
+                    <div class="admin-form-section">
+                        <h4>✍️ Add New Poetry Entry</h4>
+                        <form id="admin-poetry-form">
+                            <div class="form-group">
+                                <label for="admin-poem-title">Poem Title:</label>
+                                <input type="text" id="admin-poem-title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="admin-poem-content">Poem Content:</label>
+                                <textarea id="admin-poem-content" required style="height: 120px;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="admin-poem-author">Author:</label>
+                                <input type="text" id="admin-poem-author" value="Libby Nessworthy" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="admin-poem-image">Upload Image (optional):</label>
+                                <input type="file" id="admin-poem-image" accept="image/*">
+                                <div id="admin-poem-image-preview" class="image-preview"></div>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                Add Poetry Entry
+                                <div class="submit-btn-leaf"></div>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <h4>📚 Existing Poetry Entries</h4>
+                    <div id="admin-libby-poetry-list" class="admin-items-grid">
+                        <!-- Libby's poetry entries -->
+                    </div>
+                </div>
+
+                <!-- Community Poetry Tab -->
+                <div id="admin-tab-community-poetry" class="admin-tab-content">
+                    <h4>🌸 Community Poetry Submissions</h4>
+                    <div id="admin-community-poetry-list" class="admin-items-grid">
+                        <!-- Community poetry entries -->
+                    </div>
+                </div>
+
+                <!-- Shop Items Tab -->
+                <div id="admin-tab-shop-items" class="admin-tab-content">
+                    <div class="admin-form-section">
+                        <h4>🛍️ Add New Shop Item</h4>
+                        <form id="shop-item-form">
+                            <div class="form-group">
+                                <label for="item-name">Item Name:</label>
+                                <input type="text" id="item-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="item-description">Description:</label>
+                                <textarea id="item-description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="item-price">Price:</label>
+                                <input type="text" id="item-price" placeholder="$24.99">
+                            </div>
+                            <div class="form-group">
+                                <label for="item-image-file">Upload Image:</label>
+                                <input type="file" id="item-image-file" accept="image/*">
+                                <div id="item-image-preview" class="image-preview"></div>
+                                <label for="item-image">Or Image URL:</label>
+                                <input type="url" id="item-image">
+                            </div>
+                            <div class="form-group">
+                                <label for="item-link">Link (optional):</label>
+                                <input type="url" id="item-link">
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                Add Shop Item
+                                <div class="submit-btn-leaf"></div>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <h4>🛒 Current Shop Items</h4>
+                    <div id="admin-shop-list" class="admin-items-grid">
+                        <!-- Shop items -->
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="admin-tab-settings" class="admin-tab-content">
+                    <div class="admin-form-section">
+                        <h4>📢 Manage Announcement</h4>
+                        <div class="form-group">
+                            <label for="announcement-text">Announcement Text:</label>
+                            <input type="text" id="announcement-text">
+                        </div>
+                        <button class="submit-btn" onclick="updateAnnouncement()">
+                            Update Announcement
+                            <div class="submit-btn-leaf"></div>
+                        </button>
+                    </div>
+
+                    <div class="admin-form-section">
+                        <h4>📝 Manage Introduction Text</h4>
+                        <div class="form-group">
+                            <label for="intro-text-admin">Introduction Text:</label>
+                            <textarea id="intro-text-admin" style="height: 200px;"></textarea>
+                        </div>
+                        <button class="submit-btn" onclick="updateIntroText()">
+                            Update Introduction
+                            <div class="submit-btn-leaf"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Logout Section -->
+                <div class="logout-section">
+                    <button class="submit-btn" onclick="logout()" style="background: #dc3545;">
+                        🚪 Logout from Admin Panel
+                        <div class="submit-btn-leaf"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== ENHANCED FIREBASE + LOCALSTORAGE SYSTEM ====================
+        
+        /**
+         * Enhanced DataStore with Firebase Integration + LocalStorage Fallback
+         * Provides true multi-storage capability with reliability
+         */
+        class EnhancedDataStore {
+            constructor() {
+                this.storageKey = 'libby_poetry_datastore';
+                this.version = '2.1';
+                this.isOnline = navigator.onLine;
+                this.firebaseEnabled = false;
+                this.firebaseDb = null;
+                this.firebaseModules = null;
+                this.syncQueue = [];
+                this.retryCount = 0;
+                this.maxRetries = 3;
+                
+                console.log('🗄️ Enhanced DataStore initializing...');
+                
+                // Initialize local data first
+                this.data = this.loadFromLocalStorage();
+                
+                // Initialize Firebase asynchronously
+                this.initializeFirebase().then(() => {
+                    this.updateStatus('Firebase Ready', false);
+                }).catch(error => {
+                    console.warn('Firebase unavailable, using localStorage:', error);
+                    this.updateStatus('Local Storage Only', false);
+                });
+                
+                // Setup event listeners
+                this.setupEventListeners();
+            }
+            
+            async initializeFirebase() {
+                try {
+                    this.updateStatus('Connecting to Firebase...', false);
+                    
+                    // Firebase configuration
+                    const firebaseConfig = {
+                        apiKey: "AIzaSyA5GJ9-rA-P2BXL4paZ9YKs_baFPQcpwIc",
+                        authDomain: "poeticlens-585ae.firebaseapp.com", 
+                        projectId: "poeticlens-585ae",
+                        storageBucket: "poeticlens-585ae.firebasestorage.app",
+                        messagingSenderId: "214230848269",
+                        appId: "1:214230848269:web:61cdfdc7c1a7d89da29644"
+                    };
+                    
+                    // Import Firebase modules with timeout
+                    const importPromise = Promise.all([
+                        import('https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js'),
+                        import('https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js')
+                    ]);
+                    
+                    const timeoutPromise = new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('Firebase import timeout')), 10000)
+                    );
+                    
+                    const [appModule, firestoreModule] = await Promise.race([importPromise, timeoutPromise]);
+                    
+                    // Initialize Firebase
+                    const app = appModule.initializeApp(firebaseConfig);
+                    this.firebaseDb = firestoreModule.getFirestore(app);
+                    this.firebaseModules = {
+                        collection: firestoreModule.collection,
+                        doc: firestoreModule.doc,
+                        setDoc: firestoreModule.setDoc,
+                        getDoc: firestoreModule.getDoc,
+                        getDocs: firestoreModule.getDocs,
+                        deleteDoc: firestoreModule.deleteDoc,
+                        onSnapshot: firestoreModule.onSnapshot,
+                        serverTimestamp: firestoreModule.serverTimestamp
+                    };
+                    
+                    this.firebaseEnabled = true;
+                    console.log('🔥 Firebase initialized successfully');
+                    
+                    // Load data from Firebase and sync
+                    await this.loadFromFirebase();
+                    await this.syncPendingChanges();
+                    
+                    return true;
+                } catch (error) {
+                    console.warn('⚠️ Firebase initialization failed:', error);
+                    this.firebaseEnabled = false;
+                    throw error;
+                }
+            }
+            
+            setupEventListeners() {
+                window.addEventListener('online', () => {
+                    this.isOnline = true;
+                    this.updateStatus('Back Online', false);
+                    if (this.firebaseEnabled) {
+                        this.syncPendingChanges();
+                    }
+                });
+                
+                window.addEventListener('offline', () => {
+                    this.isOnline = false;
+                    this.updateStatus('Offline Mode', true);
+                });
+                
+                // Auto-save to localStorage every 30 seconds
+                setInterval(() => {
+                    this.saveToLocalStorage();
+                }, 30000);
+            }
+            
+            loadFromLocalStorage() {
+                try {
+                    const stored = localStorage.getItem(this.storageKey);
+                    if (stored) {
+                        const data = JSON.parse(stored);
+                        console.log('📁 Data loaded from localStorage');
+                        return data;
+                    }
+                } catch (error) {
+                    console.error('❌ Error loading from localStorage:', error);
+                }
+                
+                return this.getDefaultData();
+            }
+            
+            saveToLocalStorage() {
+                try {
+                    this.data.lastModified = Date.now();
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+                    return true;
+                } catch (error) {
+                    console.error('❌ Error saving to localStorage:', error);
+                    this.updateStatus('Local Save Error', true);
+                    return false;
+                }
+            }
+            
+            async loadFromFirebase() {
+                if (!this.firebaseEnabled) return false;
+                
+                try {
+                    console.log('☁️ Loading data from Firebase...');
+                    const { collection, getDocs } = this.firebaseModules;
+                    
+                    // Load collections
+                    const collections = ['poetryEntries', 'userSubmissions', 'shopItems'];
+                    let hasFirebaseData = false;
+                    
+                    for (const collectionName of collections) {
+                        try {
+                            const querySnapshot = await getDocs(collection(this.firebaseDb, collectionName));
+                            const items = [];
+                            
+                            querySnapshot.forEach((doc) => {
+                                items.push({ id: doc.id, ...doc.data() });
+                            });
+                            
+                            if (items.length > 0) {
+                                this.data[collectionName] = items;
+                                hasFirebaseData = true;
+                                console.log(`📥 Loaded ${items.length} items from ${collectionName}`);
+                            }
+                        } catch (error) {
+                            console.warn(`⚠️ Error loading ${collectionName}:`, error);
+                        }
+                    }
+                    
+                    // Load settings
+                    try {
+                        const settingsSnapshot = await getDocs(collection(this.firebaseDb, 'settings'));
+                        settingsSnapshot.forEach((doc) => {
+                            this.data.settings[doc.id] = doc.data().value;
+                            hasFirebaseData = true;
+                        });
+                    } catch (error) {
+                        console.warn('⚠️ Error loading settings:', error);
+                    }
+                    
+                    if (hasFirebaseData) {
+                        this.saveToLocalStorage();
+                        console.log('✅ Firebase data loaded and saved locally');
+                    }
+                    
+                    return hasFirebaseData;
+                } catch (error) {
+                    console.error('❌ Error loading from Firebase:', error);
+                    return false;
+                }
+            }
+            
+            async saveToFirebase(collection, item) {
+                if (!this.firebaseEnabled || !this.isOnline) {
+                    // Queue for later sync
+                    this.syncQueue.push({ collection, item, action: 'save' });
+                    return false;
+                }
+                
+                try {
+                    const { doc, setDoc, serverTimestamp } = this.firebaseModules;
+                    
+                    const firebaseData = {
+                        ...item,
+                        lastModified: Date.now(),
+                        firebaseTimestamp: serverTimestamp()
+                    };
+                    
+                    const docRef = doc(this.firebaseDb, collection, item.id.toString());
+                    await setDoc(docRef, firebaseData, { merge: true });
+                    
+                    console.log(`🔥 Saved to Firebase: ${collection}/${item.id}`);
+                    return true;
+                } catch (error) {
+                    console.error(`❌ Error saving to Firebase:`, error);
+                    // Queue for retry
+                    this.syncQueue.push({ collection, item, action: 'save' });
+                    return false;
+                }
+            }
+            
+            async deleteFromFirebase(collection, id) {
+                if (!this.firebaseEnabled || !this.isOnline) {
+                    this.syncQueue.push({ collection, id, action: 'delete' });
+                    return false;
+                }
+                
+                try {
+                    const { doc, deleteDoc } = this.firebaseModules;
+                    const docRef = doc(this.firebaseDb, collection, id.toString());
+                    await deleteDoc(docRef);
+                    
+                    console.log(`🔥 Deleted from Firebase: ${collection}/${id}`);
+                    return true;
+                } catch (error) {
+                    console.error(`❌ Error deleting from Firebase:`, error);
+                    this.syncQueue.push({ collection, id, action: 'delete' });
+                    return false;
+                }
+            }
+            
+            async syncPendingChanges() {
+                if (!this.firebaseEnabled || !this.isOnline || this.syncQueue.length === 0) {
+                    return;
+                }
+                
+                console.log(`🔄 Syncing ${this.syncQueue.length} pending changes...`);
+                
+                const queue = [...this.syncQueue];
+                this.syncQueue = [];
+                
+                for (const change of queue) {
+                    try {
+                        if (change.action === 'save') {
+                            await this.saveToFirebase(change.collection, change.item);
+                        } else if (change.action === 'delete') {
+                            await this.deleteFromFirebase(change.collection, change.id);
+                        }
+                    } catch (error) {
+                        // Re-queue failed operations
+                        this.syncQueue.push(change);
+                    }
+                }
+                
+                if (this.syncQueue.length > 0) {
+                    console.log(`⚠️ ${this.syncQueue.length} changes still pending sync`);
+                }
+            }
+            
+            // ==================== CRUD OPERATIONS ====================
+            
+            async create(collection, item) {
+                try {
+                    const timestamp = Date.now();
+                    const newItem = {
+                        ...item,
+                        id: item.id || timestamp,
+                        createdAt: timestamp,
+                        modifiedAt: timestamp
+                    };
+                    
+                    // Save locally first (always works)
+                    if (!this.data[collection]) {
+                        this.data[collection] = [];
+                    }
+                    this.data[collection].push(newItem);
+                    const localSaved = this.saveToLocalStorage();
+                    
+                    // Try to save to Firebase
+                    const firebaseSaved = await this.saveToFirebase(collection, newItem);
+                    
+                    this.updateStatus(firebaseSaved ? 'Saved to Firebase' : 'Saved Locally', !firebaseSaved);
+                    
+                    console.log(`✅ Created ${collection} item:`, newItem.id, firebaseSaved ? '(Firebase + Local)' : '(Local only)');
+                    return { success: true, data: newItem, synced: firebaseSaved };
+                } catch (error) {
+                    console.error(`❌ Failed to create ${collection} item:`, error);
+                    this.updateStatus('Create Error', true);
+                    return { success: false, error: error.message };
+                }
+            }
+            
+            read(collection, id = null) {
+                try {
+                    if (!this.data[collection]) {
+                        return { success: true, data: [] };
+                    }
+                    
+                    if (id) {
+                        const item = this.data[collection].find(item => item.id === id);
+                        return { success: true, data: item || null };
+                    }
+                    
+                    return { success: true, data: [...this.data[collection]] };
+                } catch (error) {
+                    console.error(`❌ Failed to read ${collection}:`, error);
+                    return { success: false, error: error.message };
+                }
+            }
+            
+            async update(collection, id, updates) {
+                try {
+                    if (!this.data[collection]) {
+                        return { success: false, error: 'Collection not found' };
+                    }
+                    
+                    const index = this.data[collection].findIndex(item => item.id === id);
+                    if (index === -1) {
+                        return { success: false, error: 'Item not found' };
+                    }
+                    
+                    const updatedItem = {
+                        ...this.data[collection][index],
+                        ...updates,
+                        modifiedAt: Date.now()
+                    };
+                    
+                    // Update locally first
+                    this.data[collection][index] = updatedItem;
+                    const localSaved = this.saveToLocalStorage();
+                    
+                    // Try to save to Firebase
+                    const firebaseSaved = await this.saveToFirebase(collection, updatedItem);
+                    
+                    this.updateStatus(firebaseSaved ? 'Updated in Firebase' : 'Updated Locally', !firebaseSaved);
+                    
+                    console.log(`✅ Updated ${collection} item:`, id, firebaseSaved ? '(Firebase + Local)' : '(Local only)');
+                    return { success: true, data: updatedItem, synced: firebaseSaved };
+                } catch (error) {
+                    console.error(`❌ Failed to update ${collection} item:`, error);
+                    this.updateStatus('Update Error', true);
+                    return { success: false, error: error.message };
+                }
+            }
+            
+            async delete(collection, id) {
+                try {
+                    if (!this.data[collection]) {
+                        return { success: false, error: 'Collection not found' };
+                    }
+                    
+                    const index = this.data[collection].findIndex(item => item.id === id);
+                    if (index === -1) {
+                        return { success: false, error: 'Item not found' };
+                    }
+                    
+                    // Remove locally first
+                    const deletedItem = this.data[collection].splice(index, 1)[0];
+                    const localSaved = this.saveToLocalStorage();
+                    
+                    // Try to delete from Firebase
+                    const firebaseDeleted = await this.deleteFromFirebase(collection, id);
+                    
+                    this.updateStatus(firebaseDeleted ? 'Deleted from Firebase' : 'Deleted Locally', !firebaseDeleted);
+                    
+                    console.log(`✅ Deleted ${collection} item:`, id, firebaseDeleted ? '(Firebase + Local)' : '(Local only)');
+                    return { success: true, data: deletedItem, synced: firebaseDeleted };
+                } catch (error) {
+                    console.error(`❌ Failed to delete ${collection} item:`, error);
+                    this.updateStatus('Delete Error', true);
+                    return { success: false, error: error.message };
+                }
+            }
+            
+            // ==================== SETTINGS OPERATIONS ====================
+            
+            getSetting(key) {
+                return this.data.settings[key] || null;
+            }
+            
+            async setSetting(key, value) {
+                try {
+                    // Update locally first
+                    this.data.settings[key] = value;
+                    this.data.lastModified = Date.now();
+                    const localSaved = this.saveToLocalStorage();
+                    
+                    // Try to save to Firebase
+                    let firebaseSaved = false;
+                    if (this.firebaseEnabled && this.isOnline) {
+                        try {
+                            const { doc, setDoc, serverTimestamp } = this.firebaseModules;
+                            const settingData = {
+                                value: value,
+                                lastModified: Date.now(),
+                                firebaseTimestamp: serverTimestamp()
+                            };
+                            const docRef = doc(this.firebaseDb, 'settings', key);
+                            await setDoc(docRef, settingData);
+                            firebaseSaved = true;
+                        } catch (error) {
+                            console.warn(`⚠️ Failed to save setting to Firebase:`, error);
+                        }
+                    }
+                    
+                    this.updateStatus(firebaseSaved ? 'Setting Saved to Firebase' : 'Setting Saved Locally', !firebaseSaved);
+                    
+                    console.log(`✅ Updated setting: ${key}`, firebaseSaved ? '(Firebase + Local)' : '(Local only)');
+                    return { success: true, synced: firebaseSaved };
+                } catch (error) {
+                    console.error(`❌ Failed to update setting: ${key}`, error);
+                    return { success: false, error: error.message };
+                }
+            }
+            
+            // ==================== UTILITY FUNCTIONS ====================
+            
+            getDefaultData() {
+                return {
+                    version: this.version,
+                    lastModified: Date.now(),
+                    poetryEntries: [
+                        {
+                            id: 1,
+                            title: "Wild Child",
+                            content: "The summer leaves whisper to me,\nCome out and play again, wild child,\nThe trees miss your untethered heart.\nThe summer birds sing to me,\nCome dance beneath us, wild child,\nUse our wings to lift your mind.\nThe summer beat of my footsteps on soil calls to me,\nLet go with each step, wild child,\nYour wildness makes you beautiful.\nThe summer sun on delicate, intricate petals feeds my soul,\nFeel it soak into your face, wild child,\nBe reborn, be home, be whole.\nShe still lingers within.",
+                            author: "Libby Nessworthy",
+                            image: "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/501631554_122156928800568294_5438287569295846653_n.jpg?stp=cp6_dst-jpg_s720x720_tt6&_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=RQB3upzL-WoQ7kNvwFawezN&_nc_oc=Adnu1kKFnOvThcD1sD_m3HAF2Rilwcz1kohYd-frGhrqDGSbyawRp2laxUm3txInL9Tki5ouQofWzmhwoFu3AZLp&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=HmXyqXlHFRm8j_Lb6iS3XA&oh=00_AfI7WSzScSOglpImkWzNg6bCwWUiFVJ8aNN26TgpBhSrDA&oe=684264E6",
+                            createdAt: Date.now(),
+                            modifiedAt: Date.now()
+                        },
+                        {
+                            id: 2,
+                            title: "Flowering",
+                            content: "Secret forest warmth,\nbeautiful, quiet breath,\nbeneath cycles of the moon,\nnature lighting my way,\npoetry pulsing through my fingertips,\nI am flowering here.",
+                            author: "Libby Nessworthy",
+                            image: "https://scontent-man2-1.xx.fbcdn.net/v/t39.30808-6/492123195_122150141522568294_1437317788203308205_n.jpg?stp=cp6_dst-jpg_s720x720_tt6&_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=g3c7k4gw534Q7kNvwHAXKgD&_nc_oc=Adn1hBjrbu_vAS5NOvxEd8-ePWeKShtkqle00mRo2Ep1zoWd-UeUQOK5KMCopD1B-htYTxQpC9lQAIL5-ymNJ1i_&_nc_zt=23&_nc_ht=scontent-man2-1.xx&_nc_gid=eIifBj0VfPFACNzIVQqSLQ&oh=00_AfJx8syap8I5ocvJ1N4b3a9tRyCqOWKvaghiWvAf6jtPKg&oe=684268E6",
+                            createdAt: Date.now(),
+                            modifiedAt: Date.now()
+                        }
+                    ],
+                    userSubmissions: [],
+                    shopItems: [
+                        {
+                            id: 1,
+                            name: "Poetry Collection - 'Nature's Love'",
+                            description: "A beautiful hardcover collection of Libby's most beloved nature and love poems.",
+                            price: "$24.99",
+                            image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect fill='%238B4513' width='300' height='200'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' fill='gold' font-size='16' font-family='serif'%3EPoetry Book%3C/text%3E%3C/svg%3E",
+                            link: "",
+                            createdAt: Date.now(),
+                            modifiedAt: Date.now()
+                        }
+                    ],
+                    settings: {
+                        announcement: "Welcome to Libby's Poetry Garden - Where Nature Meets Words 🌸",
+                        introText: "Welcome to my poetic sanctuary where the whispers of nature dance with the melodies of love. I am Libby Nessworthy, a passionate poet who finds inspiration in the rustling leaves, blooming flowers, and the eternal dance between earth and heart.\n\nMy journey began in the quiet moments of dawn, when dewdrops held the secrets of the universe, and in the gentle embrace of twilight, where love stories are written in starlight. Each poem is a bridge between the natural world and the depths of human emotion.\n\nHere, you'll discover verses that celebrate the changing seasons of both nature and the heart, exploring how love grows like wildflowers and how our souls mirror the rhythms of the earth. Join me in this garden of words where every stanza blooms with authenticity and wonder."
+                    },
+                    cooldownUsers: {}
+                };
+            }
+            
+            updateStatus(message, isError = false) {
+                const statusElement = document.getElementById('datastore-status');
+                const statusTextElement = document.getElementById('datastore-status-text');
+                const firebaseStatusElement = document.getElementById('firebase-status');
+                
+                if (statusElement) {
+                    statusElement.textContent = `📊 ${message}`;
+                    statusElement.className = `datastore-status ${isError ? 'error' : ''}`;
+                }
+                
+                if (statusTextElement) {
+                    statusTextElement.textContent = message;
+                    statusTextElement.style.color = isError ? '#dc3545' : '#28a745';
+                }
+                
+                if (firebaseStatusElement) {
+                    if (message.includes('Firebase')) {
+                        firebaseStatusElement.textContent = this.firebaseEnabled ? 'Connected' : 'Unavailable';
+                        firebaseStatusElement.style.color = this.firebaseEnabled ? '#28a745' : '#dc3545';
+                    }
+                }
+                
+                // Reset status after 3 seconds
+                if (message !== 'Ready') {
+                    setTimeout(() => {
+                        this.updateStatus('Ready', false);
+                    }, 3000);
+                }
+            }
+            
+            // ==================== ADMIN UTILITY FUNCTIONS ====================
+            
+            checkCooldown(user) {
+                const cooldownTime = this.data.cooldownUsers[user];
+                if (cooldownTime && Date.now() < cooldownTime) {
+                    return Math.ceil((cooldownTime - Date.now()) / 1000 / 60);
+                }
+                return 0;
+            }
+            
+            setCooldown(user, minutes = 5) {
+                this.data.cooldownUsers[user] = Date.now() + (minutes * 60 * 1000);
+                this.saveToLocalStorage();
+            }
+            
+            getStats() {
+                return {
+                    poetryEntries: this.data.poetryEntries?.length || 0,
+                    userSubmissions: this.data.userSubmissions?.length || 0,
+                    shopItems: this.data.shopItems?.length || 0,
+                    settings: Object.keys(this.data.settings).length,
+                    totalContent: (this.data.poetryEntries?.length || 0) + (this.data.userSubmissions?.length || 0),
+                    lastModified: this.data.lastModified,
+                    version: this.version,
+                    firebaseEnabled: this.firebaseEnabled,
+                    isOnline: this.isOnline,
+                    pendingSync: this.syncQueue.length
+                };
+            }
+            
+            exportData() {
+                return {
+                    ...this.data,
+                    exportDate: new Date().toISOString(),
+                    stats: this.getStats()
+                };
+            }
+        }
+
+        // Initialize enhanced datastore
+        const datastore = new EnhancedDataStore();
+
+        // ==================== LEGACY COMPATIBILITY LAYER ====================
+        
+        // Admin credentials
+        const ADMIN_USERNAME = 'Nessworthy';
+        const ADMIN_PASSWORD = 'Nature';
+        let isLoggedIn = false;
+
+        // ==================== UI FUNCTIONS ====================
+
+        function showPage(pageId) {
+            console.log('Showing page:', pageId);
+            
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Handle specific page logic
+            if (pageId === 'book') {
+                populateBook();
+            } else if (pageId === 'user-book') {
+                populateUserBook();
+                populatePoetryGrid();
+            } else if (pageId === 'shop') {
+                populateShop();
+            } else if (pageId === 'admin-panel') {
+                if (isLoggedIn) {
+                    populateAdminPanel();
+                } else {
+                    showPage('admin-login');
+                    return;
+                }
+            } else if (pageId === 'submit') {
+                checkCooldownDisplay();
+            }
+        }
+
+        function toggleBook(bookId) {
+            const book = document.getElementById(bookId);
+            book.classList.toggle('open');
+        }
+
+        function populateBook() {
+            const bookContent = document.getElementById('book-content');
+            const result = datastore.read('poetryEntries');
+            
+            if (result.success) {
+                bookContent.innerHTML = result.data.map(entry => `
+                    <div class="poetry-entry">
+                        <div class="poetry-title">${entry.title}</div>
+                        ${entry.image ? `<img src="${entry.image}" alt="${entry.title}" class="poetry-image" onerror="this.style.display='none'">` : ''}
+                        <div class="poetry-content">${entry.content}</div>
+                        <div class="poetry-author">~ ${entry.author}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function populateUserBook() {
+            const userBookContent = document.getElementById('user-book-content');
+            const result = datastore.read('userSubmissions');
+            
+            if (result.success) {
+                const submissions = result.data;
+                if (submissions.length === 0) {
+                    userBookContent.innerHTML = `
+                        <div class="poetry-entry">
+                            <div class="poetry-title">Welcome to Community Poetry</div>
+                            <div class="poetry-content">This beautiful collection will grow as poets like you share their voices. Be the first to add your poem to this community anthology!</div>
+                            <div class="poetry-author">~ The Poetry Garden</div>
+                        </div>
+                    `;
+                } else {
+                    userBookContent.innerHTML = submissions.map(entry => `
+                        <div class="poetry-entry" id="poem-${entry.id}">
+                            <div class="poetry-title">${entry.title}</div>
+                            ${entry.image ? `<img src="${entry.image}" alt="${entry.title}" class="poetry-image" onerror="this.style.display='none'">` : ''}
+                            <div class="poetry-content">${entry.content}</div>
+                            <div class="poetry-author">~ ${entry.author}</div>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function populatePoetryGrid() {
+            const poetryGrid = document.getElementById('poetry-grid');
+            const result = datastore.read('userSubmissions');
+            
+            if (result.success) {
+                const submissions = result.data;
+                if (submissions.length === 0) {
+                    poetryGrid.innerHTML = `
+                        <div class="poetry-card">
+                            <div class="poetry-card-header">
+                                <div>
+                                    <h3 class="poetry-card-title">No Community Poems Yet</h3>
+                                    <div class="poetry-card-author">Community Collection</div>
+                                </div>
+                            </div>
+                            <div class="poetry-card-content">
+                                Be the first to share your poetry with our community! Use the "Add New Poetry" button above to contribute your voice to this growing collection.
+                            </div>
+                            <div class="poetry-card-date">Awaiting your contribution...</div>
+                        </div>
+                    `;
+                } else {
+                    poetryGrid.innerHTML = submissions.map(entry => `
+                        <div class="poetry-card" onclick="viewPoetryInBook(${entry.id})">
+                            <div class="poetry-card-header">
+                                <div>
+                                    <h3 class="poetry-card-title">${entry.title}</h3>
+                                    <div class="poetry-card-author">by ${entry.author}</div>
+                                </div>
+                                ${entry.image ? `<img src="${entry.image}" alt="${entry.title}" class="poetry-card-image" onerror="this.style.display='none'">` : ''}
+                            </div>
+                            <div class="poetry-card-content">${entry.content.substring(0, 200)}${entry.content.length > 200 ? '...' : ''}</div>
+                            <div class="poetry-card-date">${entry.createdAt ? new Date(entry.createdAt).toLocaleDateString() : 'Recently added'}</div>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function populateShop() {
+            const shopContainer = document.getElementById('shop-items');
+            const result = datastore.read('shopItems');
+            
+            if (result.success) {
+                shopContainer.innerHTML = result.data.map(item => `
+                    <div class="shop-item">
+                        <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'300\\' height=\\'200\\' viewBox=\\'0 0 300 200\\'%3E%3Crect fill=\\'%23f0f0f0\\' width=\\'300\\' height=\\'200\\'/%3E%3Ctext x=\\'50%\\' y=\\'50%\\' text-anchor=\\'middle\\' fill=\\'%23666\\' font-size=\\'14\\'%3ENo Image%3C/text%3E%3C/svg%3E'">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <div class="price">${item.price}</div>
+                        ${item.link ? `<a href="${item.link}" target="_blank" style="color: #0891b2; text-decoration: none;">View Item →</a>` : ''}
+                    </div>
+                `).join('');
+            }
+        }
+
+        function togglePoetryCreationForm() {
+            const form = document.getElementById('poetry-creation-form');
+            const isVisible = form.classList.contains('active');
+            
+            if (isVisible) {
+                form.classList.remove('active');
+                document.getElementById('community-poetry-form').reset();
+                document.getElementById('community-poem-image-preview').innerHTML = '';
+            } else {
+                form.classList.add('active');
+            }
+        }
+
+        function viewPoetryInBook(poetryId) {
+            const book = document.getElementById('user-poetry-book');
+            if (!book.classList.contains('open')) {
+                book.classList.add('open');
+            }
+            
+            setTimeout(() => {
+                const poemElement = document.getElementById(`poem-${poetryId}`);
+                if (poemElement) {
+                    poemElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    poemElement.style.background = 'rgba(125, 211, 252, 0.3)';
+                    setTimeout(() => {
+                        poemElement.style.background = 'rgba(125, 211, 252, 0.1)';
+                    }, 2000);
+                }
+            }, 800);
+        }
+
+        function showNotification(title, content, poetryId = null) {
+            const notification = document.getElementById('notification');
+            const titleElement = document.getElementById('notification-title-text');
+            const contentElement = document.getElementById('notification-content');
+            
+            titleElement.textContent = title;
+            contentElement.textContent = content;
+            
+            notification.classList.add('show');
+            
+            notification.onclick = () => {
+                hideNotification();
+                if (poetryId) {
+                    showPage('user-book');
+                    setTimeout(() => viewPoetryInBook(poetryId), 500);
+                }
+            };
+            
+            setTimeout(hideNotification, 5000);
+        }
+
+        function hideNotification() {
+            document.getElementById('notification').classList.remove('show');
+        }
+
+        function convertImageToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function handleImagePreview(event, previewId) {
+            const file = event.target.files[0];
+            const preview = document.getElementById(previewId);
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview">
+                        <button type="button" class="remove-image-btn" onclick="removeImagePreview('${previewId}', '${event.target.id}')">Remove</button>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '';
+            }
+        }
+
+        function removeImagePreview(previewId, inputId) {
+            document.getElementById(previewId).innerHTML = '';
+            document.getElementById(inputId).value = '';
+        }
+
+        function checkCooldownDisplay() {
+            const poetName = document.getElementById('poet-name').value;
+            const cooldownNotice = document.getElementById('cooldown-notice');
+            const cooldownTimer = document.getElementById('cooldown-timer');
+            
+            if (poetName) {
+                const remainingMinutes = datastore.checkCooldown(poetName);
+                if (remainingMinutes > 0) {
+                    cooldownNotice.style.display = 'block';
+                    cooldownTimer.textContent = `${remainingMinutes} minutes`;
+                } else {
+                    cooldownNotice.style.display = 'none';
+                }
+            } else {
+                cooldownNotice.style.display = 'none';
+            }
+        }
+
+        // ==================== ADMIN FUNCTIONS ====================
+
+        function switchAdminTab(tabName, element) {
+            try {
+                // Hide all tab contents
+                document.querySelectorAll('.admin-tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Remove active class from all tabs
+                document.querySelectorAll('.admin-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // Show selected tab content
+                document.getElementById(`admin-tab-${tabName}`).classList.add('active');
+                if (element) element.classList.add('active');
+                
+                // Populate content based on tab
+                if (tabName === 'overview') {
+                    updateAdminStats();
+                } else if (tabName === 'libby-poetry') {
+                    populateLibbyPoetryTab();
+                } else if (tabName === 'community-poetry') {
+                    populateCommunityPoetryTab();
+                } else if (tabName === 'shop-items') {
+                    populateShopItemsTab();
+                } else if (tabName === 'settings') {
+                    populateSettingsTab();
+                }
+            } catch (error) {
+                console.error('Error switching admin tab:', error);
+            }
+        }
+
+        function updateAdminStats() {
+            const stats = datastore.getStats();
+            document.getElementById('stat-libby-poems').textContent = stats.poetryEntries;
+            document.getElementById('stat-community-poems').textContent = stats.userSubmissions;
+            document.getElementById('stat-shop-items').textContent = stats.shopItems;
+            document.getElementById('stat-total-content').textContent = stats.totalContent;
+            
+            // Update datastore counts
+            document.getElementById('datastore-libby-count').textContent = stats.poetryEntries;
+            document.getElementById('datastore-community-count').textContent = stats.userSubmissions;
+            document.getElementById('datastore-shop-count').textContent = stats.shopItems;
+            document.getElementById('datastore-settings-count').textContent = stats.settings;
+            
+            // Update network status
+            document.getElementById('network-status').textContent = navigator.onLine ? 'Online' : 'Offline';
+            document.getElementById('network-status').style.color = navigator.onLine ? '#28a745' : '#dc3545';
+        }
+
+        function populateLibbyPoetryTab() {
+            const container = document.getElementById('admin-libby-poetry-list');
+            const result = datastore.read('poetryEntries');
+            
+            if (result.success) {
+                const entries = result.data;
+                if (entries.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 2rem;">No poetry entries yet. Add your first poem above!</p>';
+                    return;
+                }
+                
+                container.innerHTML = entries.map(entry => `
+                    <div class="admin-item-card">
+                        <div class="admin-item-header">
+                            <div>
+                                <h5 class="admin-item-title">${entry.title}</h5>
+                                <div class="admin-item-author">by ${entry.author}</div>
+                            </div>
+                            ${entry.image ? `<img src="${entry.image}" alt="${entry.title}" class="admin-item-image">` : ''}
+                        </div>
+                        <div class="admin-item-content">${entry.content.substring(0, 150)}${entry.content.length > 150 ? '...' : ''}</div>
+                        <div class="admin-buttons">
+                            <button class="admin-btn delete" onclick="deletePoetry(${entry.id}, true)">🗑️ Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function populateCommunityPoetryTab() {
+            const container = document.getElementById('admin-community-poetry-list');
+            const result = datastore.read('userSubmissions');
+            
+            if (result.success) {
+                const submissions = result.data;
+                if (submissions.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 2rem;">No community submissions yet. Encourage users to share their poetry!</p>';
+                    return;
+                }
+                
+                container.innerHTML = submissions.map(entry => `
+                    <div class="admin-item-card">
+                        <div class="admin-item-header">
+                            <div>
+                                <h5 class="admin-item-title">${entry.title}</h5>
+                                <div class="admin-item-author">by ${entry.author} (Community)</div>
+                            </div>
+                            ${entry.image ? `<img src="${entry.image}" alt="${entry.title}" class="admin-item-image">` : ''}
+                        </div>
+                        <div class="admin-item-content">${entry.content.substring(0, 150)}${entry.content.length > 150 ? '...' : ''}</div>
+                        <div class="admin-buttons">
+                            <button class="admin-btn delete" onclick="deletePoetry(${entry.id}, false)">🗑️ Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function populateShopItemsTab() {
+            const container = document.getElementById('admin-shop-list');
+            const result = datastore.read('shopItems');
+            
+            if (result.success) {
+                const items = result.data;
+                container.innerHTML = items.map(item => `
+                    <div class="admin-item-card">
+                        <div class="admin-item-header">
+                            <div>
+                                <h5 class="admin-item-title">${item.name}</h5>
+                                <div class="admin-item-author">${item.price}</div>
+                            </div>
+                            <img src="${item.image}" alt="${item.name}" class="admin-item-image">
+                        </div>
+                        <div class="admin-item-content">${item.description}</div>
+                        ${item.link ? `<p><a href="${item.link}" target="_blank" style="color: #7dd3fc;">🔗 View Item</a></p>` : ''}
+                        <div class="admin-buttons">
+                            <button class="admin-btn delete" onclick="deleteShopItem(${item.id})">🗑️ Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function populateSettingsTab() {
+            const announcementInput = document.getElementById('announcement-text');
+            const introTextInput = document.getElementById('intro-text-admin');
+            
+            if (announcementInput) {
+                announcementInput.value = datastore.getSetting('announcement') || '';
+            }
+            if (introTextInput) {
+                introTextInput.value = datastore.getSetting('introText') || '';
+            }
+        }
+
+        function populateAdminPanel() {
+            try {
+                updateAdminStats();
+                populateLibbyPoetryTab();
+                populateCommunityPoetryTab();
+                populateShopItemsTab();
+                populateSettingsTab();
+            } catch (error) {
+                console.error('Error populating admin panel:', error);
+            }
+        }
+
+        async function updateAnnouncement() {
+            const newAnnouncement = document.getElementById('announcement-text').value;
+            const result = await datastore.setSetting('announcement', newAnnouncement);
+            
+            if (result.success) {
+                document.getElementById('announcement').textContent = newAnnouncement;
+                const syncStatus = result.synced ? '(Saved to Firebase)' : '(Saved locally - will sync when online)';
+                alert(`✅ Announcement updated successfully! ${syncStatus}`);
+            } else {
+                alert('❌ Failed to update announcement: ' + (result.error || 'Unknown error'));
+            }
+        }
+
+        async function updateIntroText() {
+            const newIntroText = document.getElementById('intro-text-admin').value;
+            const result = await datastore.setSetting('introText', newIntroText);
+            
+            if (result.success) {
+                document.getElementById('intro-text').textContent = newIntroText;
+                const syncStatus = result.synced ? '(Saved to Firebase)' : '(Saved locally - will sync when online)';
+                alert(`✅ Introduction text updated successfully! ${syncStatus}`);
+            } else {
+                alert('❌ Failed to update introduction text: ' + (result.error || 'Unknown error'));
+            }
+        }
+
+        async function deletePoetry(id, isAdmin) {
+            const collection = isAdmin ? 'poetryEntries' : 'userSubmissions';
+            const result = datastore.read(collection, id);
+            
+            if (!result.success || !result.data) {
+                alert('❌ Poetry entry not found.');
+                return;
+            }
+            
+            const entry = result.data;
+            if (confirm(`⚠️ Are you sure you want to delete "${entry.title}"?\n\nThis action cannot be undone.`)) {
+                const deleteResult = await datastore.delete(collection, id);
+                
+                if (deleteResult.success) {
+                    // Refresh admin panel and user views
+                    populateAdminPanel();
+                    if (!isAdmin) {
+                        populateUserBook();
+                        populatePoetryGrid();
+                    } else {
+                        populateBook();
+                    }
+                    
+                    const syncStatus = deleteResult.synced ? '(Deleted from Firebase)' : '(Deleted locally - will sync when online)';
+                    alert(`✅ Poetry entry deleted successfully! ${syncStatus}`);
+                } else {
+                    alert('❌ Failed to delete poetry entry: ' + (deleteResult.error || 'Unknown error'));
+                }
+            }
+        }
+
+        async function deleteShopItem(id) {
+            const result = datastore.read('shopItems', id);
+            
+            if (!result.success || !result.data) {
+                alert('❌ Shop item not found.');
+                return;
+            }
+            
+            const item = result.data;
+            if (confirm(`⚠️ Are you sure you want to delete "${item.name}"?\n\nThis action cannot be undone.`)) {
+                const deleteResult = await datastore.delete('shopItems', id);
+                
+                if (deleteResult.success) {
+                    populateShopItemsTab();
+                    populateShop();
+                    updateAdminStats();
+                    
+                    const syncStatus = deleteResult.synced ? '(Deleted from Firebase)' : '(Deleted locally - will sync when online)';
+                    alert(`✅ Shop item deleted successfully! ${syncStatus}`);
+                } else {
+                    alert('❌ Failed to delete shop item: ' + (deleteResult.error || 'Unknown error'));
+                }
+            }
+        }
+
+        // ==================== ADMIN UTILITY FUNCTIONS ====================
+
+        async function checkFirebaseHealth() {
+            const stats = datastore.getStats();
+            
+            const healthReport = `
+🏥 FIREBASE & DATASTORE HEALTH REPORT
+═══════════════════════════════════
+
+🔥 Firebase: ${stats.firebaseEnabled ? '✅ Connected' : '❌ Unavailable'}
+📊 Local Storage: ✅ Working
+🌐 Network: ${stats.isOnline ? '✅ Online' : '❌ Offline'}
+🔄 Pending Sync: ${stats.pendingSync} items
+
+📈 DATA SUMMARY:
+• Libby's Poetry: ${stats.poetryEntries} entries
+• Community Poetry: ${stats.userSubmissions} entries  
+• Shop Items: ${stats.shopItems} entries
+• Settings: ${stats.settings} configurations
+• Total Content: ${stats.totalContent} items
+
+🕒 Last Modified: ${new Date(stats.lastModified).toLocaleString()}
+📦 Version: ${stats.version}
+
+${stats.firebaseEnabled ? 
+    '✅ Firebase connected - true multi-storage capability active!' : 
+    '⚠️ Firebase unavailable - running in localStorage mode with auto-sync when reconnected'
+}
+            `.trim();
+            
+            alert(healthReport);
+        }
+        
+        function exportData() {
+            try {
+                const exportData = datastore.exportData();
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(dataBlob);
+                link.download = `poetry-garden-backup-${new Date().toISOString().split('T')[0]}.json`;
+                link.click();
+                
+                alert('✅ Data exported successfully!');
+            } catch (error) {
+                alert('❌ Export failed: ' + error.message);
+            }
+        }
+        
+        async function syncToFirebase() {
+            if (!datastore.firebaseEnabled) {
+                alert('⚠️ Firebase is not available. Cannot sync.');
+                return;
+            }
+            
+            try {
+                await datastore.syncPendingChanges();
+                alert('✅ Manual Firebase sync completed!');
+                updateAdminStats();
+            } catch (error) {
+                alert('❌ Sync failed: ' + error.message);
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                isLoggedIn = false;
+                showPage('intro');
+                document.getElementById('admin-username').value = '';
+                document.getElementById('admin-password').value = '';
+                alert('You have been logged out successfully.');
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🌸 Libby\'s Poetry Garden - Firebase Enhanced Version Initializing...');
+            
+            // Wait a moment for datastore to initialize
+            setTimeout(() => {
+                // Load initial content
+                const announcement = datastore.getSetting('announcement');
+                const introText = datastore.getSetting('introText');
+                
+                if (announcement) document.getElementById('announcement').textContent = announcement;
+                if (introText) document.getElementById('intro-text').textContent = introText;
+                
+                console.log('✅ Initial content loaded');
+            }, 1000);
+            
+            // ==================== FORM EVENT LISTENERS ====================
+            
+            // Poetry submission form
+            document.getElementById('poetry-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const authorName = document.getElementById('poet-name').value;
+                const cooldownMinutes = datastore.checkCooldown(authorName);
+                
+                if (cooldownMinutes > 0) {
+                    alert(`Please wait ${cooldownMinutes} minutes before submitting another poem.`);
+                    return;
+                }
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Submitting...';
+                submitBtn.disabled = true;
+                
+                try {
+                    let imageData = null;
+                    const imageFile = document.getElementById('poem-image').files[0];
+                    if (imageFile) {
+                        imageData = await convertImageToBase64(imageFile);
+                    }
+                    
+                    const newEntry = {
+                        title: document.getElementById('poem-title').value,
+                        content: document.getElementById('poem-content').value,
+                        author: authorName,
+                        image: imageData
+                    };
+                    
+                    const result = await datastore.create('userSubmissions', newEntry);
+                    
+                    if (result.success) {
+                        datastore.setCooldown(authorName, 5);
+                        this.reset();
+                        document.getElementById('poem-image-preview').innerHTML = '';
+                        
+                        populateUserBook();
+                        populatePoetryGrid();
+                        
+                        const syncStatus = result.synced ? '' : ' (Will sync to Firebase when online)';
+                        showNotification(
+                            'Poetry Submitted! 🌸',
+                            `"${result.data.title}" by ${result.data.author} has been added to the Community Collection${syncStatus}`,
+                            result.data.id
+                        );
+                        
+                        alert('Your poetry has been submitted successfully! 🌸');
+                        checkCooldownDisplay();
+                    } else {
+                        alert('❌ Failed to submit poetry: ' + (result.error || 'Unknown error'));
+                    }
+                } catch (error) {
+                    console.error('Error submitting poetry:', error);
+                    alert('❌ Failed to submit poetry. Please try again.');
+                } finally {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+
+            // Community poetry form
+            document.getElementById('community-poetry-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Saving...';
+                submitBtn.disabled = true;
+                
+                try {
+                    let imageData = null;
+                    const imageFile = document.getElementById('community-poem-image').files[0];
+                    if (imageFile) {
+                        imageData = await convertImageToBase64(imageFile);
+                    }
+                    
+                    const newEntry = {
+                        title: document.getElementById('community-poem-title').value,
+                        content: document.getElementById('community-poem-content').value,
+                        author: document.getElementById('community-poet-name').value,
+                        image: imageData
+                    };
+                    
+                    const result = await datastore.create('userSubmissions', newEntry);
+                    
+                    if (result.success) {
+                        this.reset();
+                        document.getElementById('community-poem-image-preview').innerHTML = '';
+                        togglePoetryCreationForm();
+                        
+                        populateUserBook();
+                        populatePoetryGrid();
+                        
+                        const syncStatus = result.synced ? '(Saved to Firebase)' : '(Saved locally - will sync when online)';
+                        showNotification(
+                            'Poetry Created! 🌸',
+                            `"${result.data.title}" by ${result.data.author} has been added to the Community Collection ${syncStatus}`,
+                            result.data.id
+                        );
+                        
+                        alert('✅ Poetry entry created successfully!');
+                    } else {
+                        alert('❌ Failed to create poetry entry: ' + (result.error || 'Unknown error'));
+                    }
+                } catch (error) {
+                    console.error('Error creating poetry:', error);
+                    alert('❌ Failed to create poetry entry. Please try again.');
+                } finally {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+
+            // Admin login form
+            document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('admin-username').value;
+                const password = document.getElementById('admin-password').value;
+                
+                if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                    isLoggedIn = true;
+                    alert('✅ Login successful! Welcome Admin.');
+                    showPage('admin-panel');
+                } else {
+                    alert('❌ Invalid credentials. Please try again.');
+                    document.getElementById('admin-username').value = '';
+                    document.getElementById('admin-password').value = '';
+                }
+            });
+
+            // Admin poetry form
+            document.getElementById('admin-poetry-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Saving...';
+                submitBtn.disabled = true;
+                
+                try {
+                    let imageData = null;
+                    const imageFile = document.getElementById('admin-poem-image').files[0];
+                    if (imageFile) {
+                        imageData = await convertImageToBase64(imageFile);
+                    }
+                    
+                    const newEntry = {
+                        title: document.getElementById('admin-poem-title').value,
+                        content: document.getElementById('admin-poem-content').value,
+                        author: document.getElementById('admin-poem-author').value,
+                        image: imageData
+                    };
+                    
+                    const result = await datastore.create('poetryEntries', newEntry);
+                    
+                    if (result.success) {
+                        this.reset();
+                        document.getElementById('admin-poem-image-preview').innerHTML = '';
+                        
+                        populateLibbyPoetryTab();
+                        populateBook();
+                        updateAdminStats();
+                        
+                        const syncStatus = result.synced ? '(Saved to Firebase)' : '(Saved locally - will sync when online)';
+                        alert(`✅ Poetry entry added successfully! ${syncStatus}`);
+                    } else {
+                        alert('❌ Failed to add poetry entry: ' + (result.error || 'Unknown error'));
+                    }
+                } catch (error) {
+                    console.error('Error adding poetry:', error);
+                    alert('❌ Failed to add poetry entry. Please try again.');
+                } finally {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+
+            // Shop item form
+            document.getElementById('shop-item-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Saving...';
+                submitBtn.disabled = true;
+                
+                try {
+                    let imageData = document.getElementById('item-image').value;
+                    const imageFile = document.getElementById('item-image-file').files[0];
+                    if (imageFile) {
+                        imageData = await convertImageToBase64(imageFile);
+                    } else if (!imageData) {
+                        imageData = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect fill='%23f0f0f0' width='300' height='200'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' fill='%23666' font-size='14'%3ENo Image%3C/text%3E%3C/svg%3E";
+                    }
+                    
+                    const newItem = {
+                        name: document.getElementById('item-name').value,
+                        description: document.getElementById('item-description').value,
+                        price: document.getElementById('item-price').value,
+                        image: imageData,
+                        link: document.getElementById('item-link').value
+                    };
+                    
+                    const result = await datastore.create('shopItems', newItem);
+                    
+                    if (result.success) {
+                        this.reset();
+                        document.getElementById('item-image-preview').innerHTML = '';
+                        
+                        populateShopItemsTab();
+                        populateShop();
+                        updateAdminStats();
+                        
+                        const syncStatus = result.synced ? '(Saved to Firebase)' : '(Saved locally - will sync when online)';
+                        alert(`✅ Shop item added successfully! ${syncStatus}`);
+                    } else {
+                        alert('❌ Failed to add shop item: ' + (result.error || 'Unknown error'));
+                    }
+                } catch (error) {
+                    console.error('Error adding shop item:', error);
+                    alert('❌ Failed to add shop item. Please try again.');
+                } finally {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+
+            // ==================== IMAGE PREVIEW EVENT LISTENERS ====================
+            
+            document.getElementById('poem-image').addEventListener('change', function(e) {
+                handleImagePreview(e, 'poem-image-preview');
+            });
+
+            document.getElementById('community-poem-image').addEventListener('change', function(e) {
+                handleImagePreview(e, 'community-poem-image-preview');
+            });
+
+            document.getElementById('admin-poem-image').addEventListener('change', function(e) {
+                handleImagePreview(e, 'admin-poem-image-preview');
+            });
+
+            document.getElementById('item-image-file').addEventListener('change', function(e) {
+                handleImagePreview(e, 'item-image-preview');
+            });
+
+            document.getElementById('poet-name').addEventListener('input', checkCooldownDisplay);
+            
+            // Initialize floating elements positions
+            const leaves = document.querySelectorAll('.floating-leaf');
+            leaves.forEach((leaf, index) => {
+                const duration = 6 + Math.random() * 4;
+                leaf.style.animationDuration = duration + 's';
+                
+                const currentLeft = parseFloat(leaf.style.left);
+                const currentTop = parseFloat(leaf.style.top);
+                leaf.style.left = (currentLeft + (Math.random() - 0.5) * 10) + '%';
+                leaf.style.top = (currentTop + (Math.random() - 0.5) * 10) + '%';
+            });
+
+            console.log('✅ Firebase-enhanced initialization complete!');
+            console.log('🔥 Firebase support enabled with localStorage fallback');
+            console.log('📊 True multi-storage capability active');
+        });
+    </script>
+</body>
+</html>
