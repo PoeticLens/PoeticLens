@@ -2106,6 +2106,12 @@
                             <button class="admin-btn" style="background: #17a2b8; color: white;" onclick="testCommunityPoetryWrite()">
                                 🌸 Test Community Poetry
                             </button>
+                            <button class="admin-btn" style="background: #e83e8c; color: white;" onclick="checkFirebaseCollections()">
+                                🔍 Check Collections
+                            </button>
+                            <button class="admin-btn" style="background: #fd7e14; color: white;" onclick="forceCreatePoetryCollection()">
+                                🔨 Force Create Poetry Collection
+                            </button>
                         </div>
                     </div>
                         <div style="background: #333; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.9rem;">
@@ -2509,19 +2515,70 @@
                     };
                     
                     console.log('📝 Firebase data to save:', firebaseData);
+                    console.log('🏗️ Target collection:', collection);
+                    console.log('🆔 Document ID:', item.id.toString());
                     
                     const docRef = doc(this.firebaseDb, collection, item.id.toString());
-                    console.log('📍 Document reference:', docRef);
+                    console.log('📍 Document reference created:', docRef);
+                    console.log('📍 Document reference path:', docRef.path);
                     
+                    // Special logging for poetryEntries collection
+                    if (collection === 'poetryEntries') {
+                        console.log('📖 SPECIAL DEBUG - LIBBY\'S POETRY:');
+                        console.log('  🎯 Collection name exactly:', JSON.stringify(collection));
+                        console.log('  🎯 Collection length:', collection.length);
+                        console.log('  🎯 Collection type:', typeof collection);
+                        console.log('  🎯 Document ID:', JSON.stringify(item.id.toString()));
+                        console.log('  🎯 Full path will be:', `${collection}/${item.id.toString()}`);
+                        console.log('  🎯 Firebase DB instance:', this.firebaseDb);
+                        console.log('  🎯 Doc function:', typeof doc);
+                        console.log('  🎯 SetDoc function:', typeof setDoc);
+                    }
+                    
+                    console.log('💾 Calling setDoc with merge option...');
                     await setDoc(docRef, firebaseData, { merge: true });
                     
                     console.log(`✅ Successfully saved to Firebase: ${collection}/${item.id}`);
+                    
+                    // Verify the document was created for poetryEntries
+                    if (collection === 'poetryEntries') {
+                        console.log('📖 Verifying poetryEntries document was created...');
+                        try {
+                            const { getDoc } = this.firebaseModules;
+                            const verifyDoc = await getDoc(docRef);
+                            if (verifyDoc.exists()) {
+                                console.log('✅ VERIFIED: Document exists in poetryEntries collection');
+                                console.log('📄 Document data:', verifyDoc.data());
+                            } else {
+                                console.error('❌ VERIFICATION FAILED: Document does not exist after creation');
+                            }
+                        } catch (verifyError) {
+                            console.error('❌ Error verifying document:', verifyError);
+                        }
+                    }
+                    
                     return true;
                 } catch (error) {
                     console.error(`❌ Error saving to Firebase (${collection}/${item.id}):`, error);
                     console.error('Error name:', error.name);
                     console.error('Error message:', error.message);
                     console.error('Error code:', error.code);
+                    console.error('Error stack:', error.stack);
+                    
+                    // Special handling for poetryEntries errors
+                    if (collection === 'poetryEntries') {
+                        console.error('📖 SPECIAL ERROR ANALYSIS - LIBBY\'S POETRY:');
+                        console.error('  🚨 This error occurred while trying to save to poetryEntries');
+                        console.error('  🚨 Check if there are Firebase security rules preventing writes to this collection');
+                        console.error('  🚨 Check if the collection name has any special restrictions');
+                        console.error('  🚨 Error details:', {
+                            name: error.name,
+                            message: error.message,
+                            code: error.code,
+                            collection: collection,
+                            itemId: item.id
+                        });
+                    }
                     
                     // Queue for retry
                     console.log(`📤 Queueing ${collection}/${item.id} for retry`);
@@ -3661,46 +3718,6 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
             } catch (error) {
                 console.error('💥 Community Poetry test error:', error);
                 alert('❌ Community Poetry test FAILED!\n\nError: ' + error.message);
-            }
-        }
-        
-        async function testFirebaseWrite() {
-            if (!datastore.firebaseEnabled) {
-                alert('❌ Firebase is not connected. Cannot test write operation.');
-                return;
-            }
-            
-            try {
-                console.log('🧪 Testing Firebase write operation...');
-                
-                const testData = {
-                    id: 'test_' + Date.now(),
-                    title: 'Firebase Test Entry',
-                    content: 'This is a test entry to verify Firebase is working correctly.',
-                    author: 'System Test',
-                    createdAt: Date.now(),
-                    modifiedAt: Date.now()
-                };
-                
-                const result = await datastore.create('testEntries', testData);
-                
-                if (result.success && result.synced) {
-                    alert('✅ Firebase write test SUCCESSFUL!\n\nTest data was successfully written to Firestore. Your Firebase connection is working properly.');
-                    
-                    // Clean up test data
-                    setTimeout(async () => {
-                        await datastore.delete('testEntries', testData.id);
-                        console.log('🧹 Test data cleaned up');
-                    }, 2000);
-                } else if (result.success && !result.synced) {
-                    alert('⚠️ Firebase write test PARTIAL SUCCESS!\n\nData was saved locally but not synced to Firebase. This suggests a connection or permission issue.');
-                } else {
-                    alert('❌ Firebase write test FAILED!\n\nError: ' + (result.error || 'Unknown error'));
-                }
-                
-            } catch (error) {
-                console.error('❌ Firebase write test error:', error);
-                alert('❌ Firebase write test FAILED!\n\nError: ' + error.message);
             }
         }
         
