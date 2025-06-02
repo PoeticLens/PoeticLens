@@ -668,7 +668,7 @@
             transform: translateY(-1px);
         }
 
-        /* Shop styles */
+        /* Shop styles - Enhanced for Mobile */
         .shop-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -682,11 +682,20 @@
             padding: 1.5rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            min-height: 350px;
         }
 
         .shop-item:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .shop-item:active {
+            transform: translateY(-2px);
         }
 
         .shop-item img {
@@ -695,11 +704,21 @@
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 1rem;
+            flex-shrink: 0;
         }
 
         .shop-item h3 {
             color: #0d4f5c;
             margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            line-height: 1.3;
+        }
+
+        .shop-item p {
+            flex-grow: 1;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            color: #2d5016;
         }
 
         .shop-item .price {
@@ -707,6 +726,27 @@
             color: #7dd3fc;
             font-weight: bold;
             margin: 0.5rem 0;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(125, 211, 252, 0.1);
+            border-radius: 8px;
+        }
+
+        .shop-item a {
+            color: #0891b2;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            padding: 0.8rem;
+            background: rgba(8, 145, 178, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+
+        .shop-item a:hover {
+            background: rgba(8, 145, 178, 0.2);
+            transform: translateY(-1px);
         }
 
         /* Admin styles - Professional Dark Theme */
@@ -2013,6 +2053,25 @@
                     </div>
 
                     <div class="admin-form-section">
+                        <h4>🔍 Collection Debugging Tools</h4>
+                        <div style="margin-bottom: 1rem;">
+                            <button class="admin-btn" style="background: #6f42c1; color: white;" onclick="debugCollections()">
+                                🔍 Debug Collections
+                            </button>
+                            <button class="admin-btn" style="background: #fd7e14; color: white;" onclick="clearLocalCollections()">
+                                🗑️ Clear Local Data
+                            </button>
+                            <button class="admin-btn" style="background: #20c997; color: white;" onclick="loadFromFirebase()">
+                                ☁️ Reload from Firebase
+                            </button>
+                        </div>
+                        <div style="background: #333; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.8rem; color: #fff;">
+                            <div>🐛 Debug info will appear in browser console</div>
+                            <div>📊 Check F12 → Console for detailed logs</div>
+                        </div>
+                    </div>
+
+                    <div class="admin-form-section">
                         <h4>🔥 Firebase & Local Storage Status</h4>
                         <div style="background: #333; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.9rem;">
                             <div>🔥 Firebase: <span id="firebase-status" style="color: #ffc107;">Connecting...</span></div>
@@ -2040,6 +2099,47 @@
                             </button>
                             <button class="admin-btn" style="background: #28a745; color: white;" onclick="testFirebaseWrite()">
                                 🧪 Test Firebase Write
+                            </button>
+                            <button class="admin-btn" style="background: #ffc107; color: #212529;" onclick="testLibbyPoetryWrite()">
+                                📖 Test Libby's Poetry
+                            </button>
+                            <button class="admin-btn" style="background: #17a2b8; color: white;" onclick="testCommunityPoetryWrite()">
+                                🌸 Test Community Poetry
+                            </button>
+                        </div>
+                    </div>
+                        <div style="background: #333; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.9rem;">
+                            <div>🔥 Firebase: <span id="firebase-status" style="color: #ffc107;">Connecting...</span></div>
+                            <div>📊 Local Storage: <span style="color: #28a745;">Active</span></div>
+                            <div>🌐 Network: <span id="network-status" style="color: #28a745;">Online</span></div>
+                            <div style="margin: 0.5rem 0; border-top: 1px solid #555; padding-top: 0.5rem;">
+                                <div>📁 Libby Poetry: <span id="datastore-libby-count">0</span> entries</div>
+                                <div>🌸 Community Poetry: <span id="datastore-community-count">0</span> entries</div>
+                                <div>🛍️ Shop Items: <span id="datastore-shop-count">0</span> entries</div>
+                                <div>⚙️ Settings: <span id="datastore-settings-count">0</span> configurations</div>
+                            </div>
+                            <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #555;">
+                                <strong>Status: <span id="datastore-status-text" style="color: #28a745;">Ready</span></strong>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <button class="admin-btn" style="background: #17a2b8; color: white;" onclick="checkFirebaseHealth()">
+                                🏥 Check Firebase Health
+                            </button>
+                            <button class="admin-btn" style="background: #6f42c1; color: white;" onclick="exportData()">
+                                📤 Export Data
+                            </button>
+                            <button class="admin-btn" style="background: #fd7e14; color: white;" onclick="syncToFirebase()">
+                                🔄 Force Firebase Sync
+                            </button>
+                            <button class="admin-btn" style="background: #28a745; color: white;" onclick="testFirebaseWrite()">
+                                🧪 Test Firebase Write
+                            </button>
+                            <button class="admin-btn" style="background: #ffc107; color: #212529;" onclick="testLibbyPoetryWrite()">
+                                📖 Test Libby's Poetry
+                            </button>
+                            <button class="admin-btn" style="background: #17a2b8; color: white;" onclick="testCommunityPoetryWrite()">
+                                🌸 Test Community Poetry
                             </button>
                         </div>
                     </div>
@@ -3343,6 +3443,227 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
             }
         }
         
+        
+        function debugCollections() {
+            console.log('🔍 =================================');
+            console.log('🔍 COLLECTION DEBUG INFORMATION');
+            console.log('🔍 =================================');
+            
+            // Local Storage Data
+            console.log('📁 LOCAL STORAGE DATA:');
+            console.log('  poetryEntries:', datastore.data.poetryEntries?.length || 0, 'items');
+            console.log('  userSubmissions:', datastore.data.userSubmissions?.length || 0, 'items');
+            console.log('  shopItems:', datastore.data.shopItems?.length || 0, 'items');
+            
+            if (datastore.data.poetryEntries?.length > 0) {
+                console.log('📖 LIBBY\'S POETRY ENTRIES:');
+                datastore.data.poetryEntries.forEach((entry, index) => {
+                    console.log(`  ${index + 1}. "${entry.title}" by ${entry.author} (ID: ${entry.id})`);
+                });
+            }
+            
+            if (datastore.data.userSubmissions?.length > 0) {
+                console.log('🌸 COMMUNITY POETRY ENTRIES:');
+                datastore.data.userSubmissions.forEach((entry, index) => {
+                    console.log(`  ${index + 1}. "${entry.title}" by ${entry.author} (ID: ${entry.id})`);
+                });
+            }
+            
+            // Firebase Status
+            console.log('🔥 FIREBASE STATUS:');
+            console.log('  Enabled:', datastore.firebaseEnabled);
+            console.log('  Online:', datastore.isOnline);
+            console.log('  Database instance:', !!datastore.firebaseDb);
+            console.log('  Modules loaded:', !!datastore.firebaseModules);
+            
+            // Sync Queue
+            console.log('🔄 SYNC QUEUE:');
+            console.log('  Pending items:', datastore.syncQueue.length);
+            if (datastore.syncQueue.length > 0) {
+                datastore.syncQueue.forEach((item, index) => {
+                    console.log(`  ${index + 1}. ${item.action} → ${item.collection}/${item.item?.id || item.id}`);
+                });
+            }
+            
+            console.log('🔍 =================================');
+            
+            alert(`🔍 Debug information logged to console!\n\nLocalStorage:\n• Libby's Poetry: ${datastore.data.poetryEntries?.length || 0} entries\n• Community Poetry: ${datastore.data.userSubmissions?.length || 0} entries\n\nFirebase: ${datastore.firebaseEnabled ? 'Connected ✅' : 'Disconnected ❌'}\nSync Queue: ${datastore.syncQueue.length} pending\n\nCheck browser console (F12) for detailed logs.`);
+        }
+        
+        function clearLocalCollections() {
+            if (confirm('⚠️ Are you sure you want to clear ALL local data?\n\nThis will:\n• Delete all locally stored poetry\n• Clear community submissions\n• Remove shop items\n• Reset settings\n\nThis action cannot be undone!')) {
+                try {
+                    // Clear localStorage
+                    localStorage.removeItem(datastore.storageKey);
+                    
+                    // Reset datastore to default
+                    datastore.data = datastore.getDefaultData();
+                    datastore.saveToLocalStorage();
+                    
+                    // Update UI
+                    populateAdminPanel();
+                    populateBook();
+                    populateUserBook();
+                    populatePoetryGrid();
+                    populateShop();
+                    
+                    // Update status displays
+                    const announcement = datastore.getSetting('announcement');
+                    const introText = datastore.getSetting('introText');
+                    if (announcement) document.getElementById('announcement').textContent = announcement;
+                    if (introText) document.getElementById('intro-text').textContent = introText;
+                    
+                    console.log('🗑️ Local data cleared and reset to defaults');
+                    alert('✅ Local data cleared successfully!\n\nAll collections have been reset to default values. Firebase data is unaffected.');
+                    
+                } catch (error) {
+                    console.error('❌ Error clearing local data:', error);
+                    alert('❌ Failed to clear local data: ' + error.message);
+                }
+            }
+        }
+        
+        async function loadFromFirebase() {
+            if (!datastore.firebaseEnabled) {
+                alert('❌ Firebase is not connected. Cannot reload from Firebase.');
+                return;
+            }
+            
+            try {
+                console.log('☁️ Reloading data from Firebase...');
+                
+                const success = await datastore.loadFromFirebase();
+                
+                if (success) {
+                    // Update all UI components
+                    populateAdminPanel();
+                    populateBook();
+                    populateUserBook();
+                    populatePoetryGrid();
+                    populateShop();
+                    
+                    console.log('✅ Data reloaded from Firebase successfully');
+                    alert('✅ Data reloaded from Firebase successfully!\n\nAll collections have been updated with the latest Firebase data.');
+                } else {
+                    console.log('⚠️ No data found in Firebase or failed to load');
+                    alert('⚠️ No data found in Firebase or failed to load.\n\nThis might be normal if no data has been synced yet.');
+                }
+                
+            } catch (error) {
+                console.error('❌ Error reloading from Firebase:', error);
+                alert('❌ Failed to reload from Firebase: ' + error.message);
+            }
+        }
+
+        async function testLibbyPoetryWrite() {
+            if (!datastore.firebaseEnabled) {
+                alert('❌ Firebase is not connected. Cannot test Libby\'s poetry write operation.');
+                return;
+            }
+            
+            try {
+                console.log('📖 Testing Libby\'s Poetry Firebase write operation...');
+                
+                const testData = {
+                    id: 'libby_test_' + Date.now(),
+                    title: 'Test Libby Poem',
+                    content: 'This is a test poem to verify Libby\'s poetry collection is working with Firebase.\n\nNature calls to me,\nIn whispers of the wind,\nA test of connection.',
+                    author: 'Libby Nessworthy',
+                    createdAt: Date.now(),
+                    modifiedAt: Date.now()
+                };
+                
+                console.log('📝 Creating test entry in poetryEntries collection:', testData);
+                const result = await datastore.create('poetryEntries', testData);
+                
+                console.log('📊 Libby\'s Poetry test result:', result);
+                
+                if (result.success && result.synced) {
+                    alert('✅ Libby\'s Poetry Firebase test SUCCESSFUL!\n\nTest poem was successfully written to the "poetryEntries" collection in Firestore.');
+                    
+                    // Update admin display
+                    populateLibbyPoetryTab();
+                    populateBook();
+                    updateAdminStats();
+                    
+                    // Clean up test data after 3 seconds
+                    setTimeout(async () => {
+                        await datastore.delete('poetryEntries', testData.id);
+                        populateLibbyPoetryTab();
+                        populateBook();
+                        console.log('🧹 Libby\'s poetry test data cleaned up');
+                    }, 3000);
+                } else if (result.success && !result.synced) {
+                    alert('⚠️ Libby\'s Poetry test PARTIAL SUCCESS!\n\nData was saved locally but not synced to Firebase. Check Firebase connection and permissions.');
+                    console.warn('⚠️ Libby\'s Poetry not synced to Firebase');
+                    console.log('Firebase enabled:', datastore.firebaseEnabled);
+                    console.log('Online status:', datastore.isOnline);
+                    console.log('Sync queue:', datastore.syncQueue);
+                } else {
+                    alert('❌ Libby\'s Poetry test FAILED!\n\nError: ' + (result.error || 'Unknown error'));
+                    console.error('❌ Libby\'s Poetry test failed:', result.error);
+                }
+                
+            } catch (error) {
+                console.error('💥 Libby\'s Poetry test error:', error);
+                alert('❌ Libby\'s Poetry test FAILED!\n\nError: ' + error.message);
+            }
+        }
+        
+        async function testCommunityPoetryWrite() {
+            if (!datastore.firebaseEnabled) {
+                alert('❌ Firebase is not connected. Cannot test Community poetry write operation.');
+                return;
+            }
+            
+            try {
+                console.log('🌸 Testing Community Poetry Firebase write operation...');
+                
+                const testData = {
+                    id: 'community_test_' + Date.now(),
+                    title: 'Test Community Poem',
+                    content: 'This is a test poem to verify the community poetry collection is working with Firebase.\n\nWords flow like rivers,\nCommunity voices unite,\nTesting connection.',
+                    author: 'Test Community User',
+                    createdAt: Date.now(),
+                    modifiedAt: Date.now()
+                };
+                
+                console.log('📝 Creating test entry in userSubmissions collection:', testData);
+                const result = await datastore.create('userSubmissions', testData);
+                
+                console.log('📊 Community Poetry test result:', result);
+                
+                if (result.success && result.synced) {
+                    alert('✅ Community Poetry Firebase test SUCCESSFUL!\n\nTest poem was successfully written to the "userSubmissions" collection in Firestore.');
+                    
+                    // Update displays
+                    populateCommunityPoetryTab();
+                    populateUserBook();
+                    populatePoetryGrid();
+                    updateAdminStats();
+                    
+                    // Clean up test data after 3 seconds
+                    setTimeout(async () => {
+                        await datastore.delete('userSubmissions', testData.id);
+                        populateCommunityPoetryTab();
+                        populateUserBook();
+                        populatePoetryGrid();
+                        console.log('🧹 Community poetry test data cleaned up');
+                    }, 3000);
+                } else if (result.success && !result.synced) {
+                    alert('⚠️ Community Poetry test PARTIAL SUCCESS!\n\nData was saved locally but not synced to Firebase. Check Firebase connection and permissions.');
+                    console.warn('⚠️ Community Poetry not synced to Firebase');
+                } else {
+                    alert('❌ Community Poetry test FAILED!\n\nError: ' + (result.error || 'Unknown error'));
+                    console.error('❌ Community Poetry test failed:', result.error);
+                }
+                
+            } catch (error) {
+                console.error('💥 Community Poetry test error:', error);
+                alert('❌ Community Poetry test FAILED!\n\nError: ' + error.message);
+            }
+        }
+        
         async function testFirebaseWrite() {
             if (!datastore.firebaseEnabled) {
                 alert('❌ Firebase is not connected. Cannot test write operation.');
@@ -3706,6 +4027,8 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
             document.getElementById('community-poetry-form').addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
+                console.log('🌸 COMMUNITY POETRY FORM: Starting submission...');
+                
                 const submitBtn = this.querySelector('button[type="submit"]');
                 const originalText = submitBtn.textContent;
                 submitBtn.textContent = 'Saving...';
@@ -3715,7 +4038,9 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                     let imageData = null;
                     const imageFile = document.getElementById('community-poem-image').files[0];
                     if (imageFile) {
+                        console.log('🖼️ COMMUNITY POETRY: Converting image to base64...');
                         imageData = await convertImageToBase64(imageFile);
+                        console.log('✅ COMMUNITY POETRY: Image converted successfully');
                     }
                     
                     const newEntry = {
@@ -3725,9 +4050,25 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                         image: imageData
                     };
                     
+                    console.log('📝 COMMUNITY POETRY: Entry data prepared:', {
+                        title: newEntry.title,
+                        author: newEntry.author,
+                        hasImage: !!newEntry.image,
+                        contentLength: newEntry.content.length
+                    });
+                    
+                    console.log('💾 COMMUNITY POETRY: Calling datastore.create with "userSubmissions" collection...');
                     const result = await datastore.create('userSubmissions', newEntry);
                     
+                    console.log('📊 COMMUNITY POETRY: Create result:', {
+                        success: result.success,
+                        synced: result.synced,
+                        id: result.data?.id,
+                        error: result.error
+                    });
+                    
                     if (result.success) {
+                        console.log('✅ COMMUNITY POETRY: Entry created successfully!');
                         this.reset();
                         document.getElementById('community-poem-image-preview').innerHTML = '';
                         togglePoetryCreationForm();
@@ -3735,7 +4076,7 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                         populateUserBook();
                         populatePoetryGrid();
                         
-                        const syncStatus = result.synced ? '(Saved to Firebase)' : '(Saved locally - will sync when online)';
+                        const syncStatus = result.synced ? '(Saved to Firebase ✅)' : '(Saved locally - will sync when online ⚠️)';
                         showNotification(
                             'Poetry Created! 🌸',
                             `"${result.data.title}" by ${result.data.author} has been added to the Community Collection ${syncStatus}`,
@@ -3743,11 +4084,22 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                         );
                         
                         alert('✅ Poetry entry created successfully!');
+                        
+                        // Additional Firebase verification
+                        if (result.synced) {
+                            console.log('🔥 COMMUNITY POETRY: Successfully synced to Firebase!');
+                        } else {
+                            console.warn('⚠️ COMMUNITY POETRY: Not synced to Firebase - checking why...');
+                            console.log('Firebase enabled:', datastore.firebaseEnabled);
+                            console.log('Is online:', datastore.isOnline);
+                            console.log('Sync queue length:', datastore.syncQueue.length);
+                        }
                     } else {
+                        console.error('❌ COMMUNITY POETRY: Failed to create entry:', result.error);
                         alert('❌ Failed to create poetry entry: ' + (result.error || 'Unknown error'));
                     }
                 } catch (error) {
-                    console.error('Error creating poetry:', error);
+                    console.error('💥 COMMUNITY POETRY: Exception during submission:', error);
                     alert('❌ Failed to create poetry entry. Please try again.');
                 } finally {
                     submitBtn.textContent = originalText;
@@ -3777,6 +4129,8 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
             document.getElementById('admin-poetry-form').addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
+                console.log('🔧 ADMIN POETRY FORM: Starting submission...');
+                
                 const submitBtn = this.querySelector('button[type="submit"]');
                 const originalText = submitBtn.textContent;
                 submitBtn.textContent = 'Saving...';
@@ -3786,7 +4140,9 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                     let imageData = null;
                     const imageFile = document.getElementById('admin-poem-image').files[0];
                     if (imageFile) {
+                        console.log('🖼️ ADMIN POETRY: Converting image to base64...');
                         imageData = await convertImageToBase64(imageFile);
+                        console.log('✅ ADMIN POETRY: Image converted successfully');
                     }
                     
                     const newEntry = {
@@ -3796,9 +4152,25 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                         image: imageData
                     };
                     
+                    console.log('📝 ADMIN POETRY: Entry data prepared:', {
+                        title: newEntry.title,
+                        author: newEntry.author,
+                        hasImage: !!newEntry.image,
+                        contentLength: newEntry.content.length
+                    });
+                    
+                    console.log('💾 ADMIN POETRY: Calling datastore.create with "poetryEntries" collection...');
                     const result = await datastore.create('poetryEntries', newEntry);
                     
+                    console.log('📊 ADMIN POETRY: Create result:', {
+                        success: result.success,
+                        synced: result.synced,
+                        id: result.data?.id,
+                        error: result.error
+                    });
+                    
                     if (result.success) {
+                        console.log('✅ ADMIN POETRY: Entry created successfully!');
                         this.reset();
                         document.getElementById('admin-poem-image-preview').innerHTML = '';
                         
@@ -3806,13 +4178,24 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                         populateBook();
                         updateAdminStats();
                         
-                        const syncStatus = result.synced ? '(Saved to Firebase)' : '(Saved locally - will sync when online)';
+                        const syncStatus = result.synced ? '(Saved to Firebase ✅)' : '(Saved locally - will sync when online ⚠️)';
                         alert(`✅ Poetry entry added successfully! ${syncStatus}`);
+                        
+                        // Additional Firebase verification
+                        if (result.synced) {
+                            console.log('🔥 ADMIN POETRY: Successfully synced to Firebase!');
+                        } else {
+                            console.warn('⚠️ ADMIN POETRY: Not synced to Firebase - checking why...');
+                            console.log('Firebase enabled:', datastore.firebaseEnabled);
+                            console.log('Is online:', datastore.isOnline);
+                            console.log('Sync queue length:', datastore.syncQueue.length);
+                        }
                     } else {
+                        console.error('❌ ADMIN POETRY: Failed to create entry:', result.error);
                         alert('❌ Failed to add poetry entry: ' + (result.error || 'Unknown error'));
                     }
                 } catch (error) {
-                    console.error('Error adding poetry:', error);
+                    console.error('💥 ADMIN POETRY: Exception during submission:', error);
                     alert('❌ Failed to add poetry entry. Please try again.');
                 } finally {
                     submitBtn.textContent = originalText;
