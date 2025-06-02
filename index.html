@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0d4f5c">
     <title>Libby Nessworthy - Poetry Archive</title>
     <style>
         * {
@@ -447,6 +451,7 @@
             }
         }
 
+        /* Poetry Cards - Enhanced for Touch */
         .poetry-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -463,6 +468,10 @@
             transition: all 0.3s ease;
             border-left: 4px solid #7dd3fc;
             cursor: pointer;
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
         }
 
         .poetry-card:hover {
@@ -471,11 +480,16 @@
             border-left-color: #0891b2;
         }
 
+        .poetry-card:active {
+            transform: translateY(-2px);
+        }
+
         .poetry-card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 1rem;
+            gap: 1rem;
         }
 
         .poetry-card-title {
@@ -483,12 +497,14 @@
             color: #0d4f5c;
             font-weight: bold;
             margin: 0;
+            line-height: 1.3;
         }
 
         .poetry-card-author {
             color: #0891b2;
             font-style: italic;
             font-size: 0.9rem;
+            white-space: nowrap;
         }
 
         .poetry-card-content {
@@ -498,6 +514,7 @@
             max-height: 150px;
             overflow: hidden;
             position: relative;
+            flex-grow: 1;
         }
 
         .poetry-card-image {
@@ -505,7 +522,7 @@
             height: 60px;
             object-fit: cover;
             border-radius: 8px;
-            float: right;
+            flex-shrink: 0;
             margin-left: 1rem;
             margin-bottom: 0.5rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -514,10 +531,11 @@
         .poetry-card-date {
             color: #6c757d;
             font-size: 0.8rem;
-            margin-top: 0.5rem;
+            margin-top: auto;
+            text-align: right;
         }
 
-        /* Forms */
+        /* Forms - Enhanced for Mobile */
         .form-container {
             max-width: 600px;
             margin: 0 auto;
@@ -537,6 +555,7 @@
             margin-bottom: 0.5rem;
             color: #0d4f5c;
             font-weight: bold;
+            font-size: 1rem;
         }
 
         .form-group input,
@@ -547,11 +566,23 @@
             border-radius: 8px;
             font-size: 1rem;
             font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0891b2;
+            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
         }
 
         .form-group textarea {
             height: 150px;
             resize: vertical;
+            min-height: 100px;
         }
 
         .submit-btn {
@@ -565,6 +596,12 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            font-weight: 600;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .submit-btn:hover {
@@ -1115,6 +1152,535 @@
 
         .datastore-status.error {
             background: rgba(220, 53, 69, 0.9);
+        }
+
+        /* RESPONSIVE DESIGN - Mobile First Approach */
+        
+        /* Mobile Phones (320px - 480px) */
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+            
+            nav {
+                padding: 0.5rem 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .logo-badge {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .nav-buttons {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+                width: 100%;
+            }
+            
+            .nav-btn {
+                padding: 0.7rem 0.5rem;
+                font-size: 0.8rem;
+                text-align: center;
+                justify-content: center;
+                min-height: 48px;
+            }
+            
+            .announcement {
+                margin-top: 140px;
+                padding: 0.7rem;
+                font-size: 0.9rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+                margin-top: 1rem;
+                border-radius: 10px;
+            }
+            
+            .intro-page {
+                padding: 2rem 1rem;
+            }
+            
+            .intro-title {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .intro-subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .intro-text {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 2rem;
+            }
+            
+            .book-container {
+                min-height: 400px;
+                padding: 1rem;
+            }
+            
+            .book {
+                width: 280px;
+                height: 400px;
+            }
+            
+            .book-cover h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .book-cover h3 {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .book-pages {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .poetry-entry {
+                margin-bottom: 2rem;
+                padding: 1rem;
+            }
+            
+            .poetry-title {
+                font-size: 1.1rem;
+            }
+            
+            .poetry-image {
+                max-width: 100%;
+                height: 150px;
+            }
+            
+            .community-poetry-header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0;
+                text-align: center;
+            }
+            
+            .add-poetry-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .poetry-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0.5rem 0;
+            }
+            
+            .poetry-card {
+                padding: 1rem;
+                border-radius: 10px;
+            }
+            
+            .poetry-card-image {
+                width: 60px;
+                height: 45px;
+                margin-left: 0.5rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+                margin: 1rem;
+                border-radius: 10px;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                padding: 0.7rem;
+                font-size: 1rem;
+            }
+            
+            .submit-btn {
+                width: 100%;
+                padding: 1rem;
+                font-size: 1rem;
+                min-height: 48px;
+            }
+            
+            .shop-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+            
+            .shop-item {
+                padding: 1rem;
+                border-radius: 10px;
+            }
+            
+            .floating-leaf {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .notification {
+                right: 10px;
+                top: 150px;
+                max-width: calc(100vw - 20px);
+                left: 10px;
+                right: 10px;
+                transform: translateY(-100px);
+            }
+            
+            .notification.show {
+                transform: translateY(0);
+            }
+            
+            .datastore-status {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                text-align: center;
+                border-radius: 10px;
+            }
+        }
+        
+        /* Large Mobile Phones & Small Tablets (481px - 768px) */
+        @media (min-width: 481px) and (max-width: 768px) {
+            nav {
+                padding: 0.7rem 1.5rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+                justify-content: center;
+            }
+            
+            .logo-badge {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .nav-buttons {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.7rem;
+                width: 100%;
+            }
+            
+            .nav-btn {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+                text-align: center;
+                min-height: 46px;
+            }
+            
+            .announcement {
+                margin-top: 120px;
+                padding: 0.8rem;
+            }
+            
+            .main-content {
+                padding: 1.5rem;
+                margin-top: 1rem;
+            }
+            
+            .intro-title {
+                font-size: 2.5rem;
+            }
+            
+            .intro-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .book {
+                width: 320px;
+                height: 480px;
+            }
+            
+            .poetry-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            
+            .community-poetry-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+            
+            .add-poetry-btn {
+                width: auto;
+                min-width: 200px;
+            }
+            
+            .shop-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .form-container {
+                max-width: 90%;
+                padding: 1.8rem;
+            }
+        }
+        
+        /* Tablets (769px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .nav-buttons {
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+            
+            .nav-btn {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.9rem;
+            }
+            
+            .main-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .intro-title {
+                font-size: 2.8rem;
+            }
+            
+            .book {
+                width: 350px;
+                height: 520px;
+            }
+            
+            .poetry-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.3rem;
+            }
+            
+            .shop-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.8rem;
+            }
+            
+            .form-container {
+                max-width: 80%;
+            }
+        }
+        
+        /* Large Tablets & Small Desktops (1025px - 1200px) */
+        @media (min-width: 1025px) and (max-width: 1200px) {
+            .poetry-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .shop-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .nav-btn:hover,
+            .submit-btn:hover,
+            .add-poetry-btn:hover,
+            .admin-btn:hover {
+                transform: none;
+            }
+            
+            .nav-btn:active,
+            .submit-btn:active,
+            .add-poetry-btn:active {
+                transform: scale(0.95);
+            }
+            
+            .poetry-card:hover {
+                transform: none;
+            }
+            
+            .poetry-card:active {
+                transform: scale(0.98);
+            }
+            
+            .shop-item:hover {
+                transform: none;
+            }
+            
+            .shop-item:active {
+                transform: scale(0.98);
+            }
+            
+            /* Disable complex animations on touch devices for better performance */
+            .logo-badge:hover {
+                animation: randomSpin 8s ease-in-out infinite;
+            }
+            
+            .nav-btn-leaf,
+            .submit-btn-leaf {
+                display: none;
+            }
+        }
+        
+        /* High DPI Displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .logo-badge {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+            
+            .poetry-image,
+            .poetry-card-image,
+            .admin-item-image {
+                image-rendering: -webkit-optimize-contrast;
+            }
+        }
+        
+        /* Landscape Orientation on Mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .nav-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .logo {
+                font-size: 1rem;
+                gap: 0.5rem;
+            }
+            
+            .logo-badge {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .nav-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                max-width: 60%;
+            }
+            
+            .nav-btn {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            
+            .announcement {
+                margin-top: 80px;
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+            
+            .intro-page {
+                padding: 1.5rem 1rem;
+            }
+            
+            .intro-title {
+                font-size: 1.8rem;
+            }
+            
+            .intro-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .book-container {
+                min-height: 300px;
+            }
+            
+            .book {
+                width: 250px;
+                height: 350px;
+            }
+        }
+        
+        /* Admin Panel Responsive Design */
+        @media (max-width: 768px) {
+            .admin-panel {
+                margin: 1rem 0;
+                border-radius: 10px;
+            }
+            
+            .admin-tabs {
+                flex-direction: row;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .admin-tab {
+                min-width: 120px;
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+                border-right: 1px solid #404040;
+            }
+            
+            .admin-tab-content {
+                padding: 1rem;
+                max-height: 60vh;
+            }
+            
+            .admin-form-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .admin-form-section .form-group input,
+            .admin-form-section .form-group textarea {
+                padding: 0.7rem;
+                font-size: 1rem;
+            }
+            
+            .admin-buttons {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.5rem;
+            }
+            
+            .admin-btn {
+                padding: 0.6rem;
+                font-size: 0.8rem;
+                text-align: center;
+                min-height: 44px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+                margin-bottom: 1rem;
+            }
+            
+            .stat-card {
+                padding: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .admin-items-grid {
+                gap: 0.8rem;
+            }
+            
+            .admin-item-card {
+                padding: 0.8rem;
+            }
+            
+            .admin-item-image {
+                width: 60px;
+                height: 45px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -2844,6 +3410,197 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
             }
         }
 
+        // ==================== DEVICE DETECTION AND RESPONSIVE OPTIMIZATION ====================
+        
+        function detectDeviceAndOptimize() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const body = document.body;
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            // Remove existing device classes
+            body.classList.remove('mobile', 'tablet', 'desktop', 'touch-device', 'landscape', 'portrait');
+            
+            // Device type detection
+            const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent) || width <= 480;
+            const isTablet = (/ipad|android|silk|kindle/i.test(userAgent) && !/mobile/i.test(userAgent)) || (width > 480 && width <= 1024);
+            const isDesktop = width > 1024 && !isMobile && !isTablet;
+            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+            const isLandscape = width > height;
+            
+            // Add appropriate classes
+            if (isMobile) {
+                body.classList.add('mobile');
+                console.log('📱 Mobile device detected');
+            } else if (isTablet) {
+                body.classList.add('tablet');
+                console.log('📟 Tablet device detected');
+            } else {
+                body.classList.add('desktop');
+                console.log('🖥️ Desktop device detected');
+            }
+            
+            if (isTouchDevice) {
+                body.classList.add('touch-device');
+                console.log('👆 Touch device detected');
+            }
+            
+            body.classList.add(isLandscape ? 'landscape' : 'portrait');
+            
+            // Optimize floating elements based on device
+            optimizeFloatingElements(isMobile, isTablet);
+            
+            // Optimize animations for performance on mobile
+            if (isMobile || isTablet) {
+                optimizeAnimationsForMobile();
+            }
+            
+            // Log device information
+            console.log(`📐 Screen: ${width}x${height}, Device: ${isMobile ? 'Mobile' : isTablet ? 'Tablet' : 'Desktop'}, Touch: ${isTouchDevice}, Orientation: ${isLandscape ? 'Landscape' : 'Portrait'}`);
+        }
+        
+        function optimizeFloatingElements(isMobile, isTablet) {
+            const floatingElements = document.querySelectorAll('.floating-leaf');
+            
+            if (isMobile) {
+                // Reduce number of floating elements on mobile for better performance
+                floatingElements.forEach((element, index) => {
+                    if (index > 4) { // Keep only first 5 elements
+                        element.style.display = 'none';
+                    } else {
+                        element.style.animationDuration = '10s'; // Slower animation
+                        element.style.opacity = '0.5'; // More subtle
+                    }
+                });
+            } else if (isTablet) {
+                // Moderate optimization for tablets
+                floatingElements.forEach((element, index) => {
+                    if (index > 6) { // Keep only first 7 elements
+                        element.style.display = 'none';
+                    } else {
+                        element.style.animationDuration = '8s';
+                        element.style.opacity = '0.6';
+                    }
+                });
+            }
+        }
+        
+        function optimizeAnimationsForMobile() {
+            // Disable complex hover animations on mobile
+            const style = document.createElement('style');
+            style.textContent = `
+                @media (max-width: 768px) {
+                    * {
+                        animation-duration: 0.3s !important;
+                        transition-duration: 0.3s !important;
+                    }
+                    
+                    .logo-badge {
+                        animation-duration: 12s !important;
+                    }
+                    
+                    .floating-leaf {
+                        animation-duration: 15s !important;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            console.log('📱 Mobile animation optimizations applied');
+        }
+        
+        function handleOrientationChange() {
+            // Wait for orientation change to complete
+            setTimeout(() => {
+                detectDeviceAndOptimize();
+                
+                // Refresh layout-dependent elements
+                if (window.innerWidth <= 768) {
+                    const books = document.querySelectorAll('.book.open');
+                    books.forEach(book => {
+                        book.classList.remove('open');
+                        setTimeout(() => book.classList.add('open'), 100);
+                    });
+                }
+                
+                console.log('🔄 Orientation changed, layout updated');
+            }, 150);
+        }
+        
+        function addTouchOptimizations() {
+            // Add touch feedback for better mobile UX
+            const touchElements = document.querySelectorAll('.nav-btn, .submit-btn, .add-poetry-btn, .poetry-card, .shop-item, .admin-btn');
+            
+            touchElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.7';
+                }, { passive: true });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '';
+                }, { passive: true });
+                
+                element.addEventListener('touchcancel', function() {
+                    this.style.opacity = '';
+                }, { passive: true });
+            });
+            
+            console.log('👆 Touch optimizations applied');
+        }
+        
+        function optimizeImagesForDevice() {
+            const images = document.querySelectorAll('img');
+            const isMobile = document.body.classList.contains('mobile');
+            
+            images.forEach(img => {
+                if (isMobile) {
+                    // Enable lazy loading on mobile
+                    img.loading = 'lazy';
+                    
+                    // Optimize image rendering
+                    img.style.imageRendering = 'auto';
+                }
+            });
+            
+            if (isMobile) {
+                console.log('🖼️ Image optimizations applied for mobile');
+            }
+        }
+        
+        function handleMobileKeyboard() {
+            // Handle viewport changes when mobile keyboard appears
+            let initialViewportHeight = window.innerHeight;
+            
+            window.addEventListener('resize', () => {
+                const currentHeight = window.innerHeight;
+                const heightDifference = initialViewportHeight - currentHeight;
+                
+                // If height decreased significantly, keyboard is likely open
+                if (heightDifference > 150) {
+                    document.body.classList.add('keyboard-open');
+                    console.log('⌨️ Mobile keyboard detected');
+                } else {
+                    document.body.classList.remove('keyboard-open');
+                }
+            });
+        }
+        
+        // Add CSS for keyboard handling
+        const keyboardStyle = document.createElement('style');
+        keyboardStyle.textContent = `
+            .keyboard-open .floating-elements {
+                display: none;
+            }
+            
+            .keyboard-open .main-content {
+                padding-bottom: 2rem;
+            }
+            
+            .keyboard-open .book-container {
+                min-height: 300px;
+            }
+        `;
+        document.head.appendChild(keyboardStyle);
+
         // ==================== INITIALIZATION ====================
 
         document.addEventListener('DOMContentLoaded', async function() {
@@ -2851,6 +3608,16 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
             console.log('🔧 Debug mode: Detailed Firebase logging enabled');
             console.log('🌐 Current URL:', window.location.href);
             console.log('🔒 Protocol:', window.location.protocol);
+            
+            // Initialize responsive design
+            detectDeviceAndOptimize();
+            addTouchOptimizations();
+            optimizeImagesForDevice();
+            handleMobileKeyboard();
+            
+            // Listen for orientation and resize changes
+            window.addEventListener('orientationchange', handleOrientationChange);
+            window.addEventListener('resize', detectDeviceAndOptimize);
             
             // Wait a moment for datastore to initialize
             setTimeout(() => {
