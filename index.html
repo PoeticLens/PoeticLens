@@ -1472,6 +1472,9 @@
                             <button class="admin-btn" style="background: #fd7e14; color: white;" onclick="syncToFirebase()">
                                 🔄 Force Firebase Sync
                             </button>
+                            <button class="admin-btn" style="background: #28a745; color: white;" onclick="testFirebaseWrite()">
+                                🧪 Test Firebase Write
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1625,8 +1628,16 @@
                 // Initialize Firebase asynchronously
                 this.initializeFirebase().then(() => {
                     this.updateStatus('Firebase Ready', false);
+                    console.log('🎉 Firebase initialization completed successfully!');
                 }).catch(error => {
-                    console.warn('Firebase unavailable, using localStorage:', error);
+                    console.warn('🚨 Firebase initialization failed - Details:', error.message);
+                    if (error.message.includes('timeout')) {
+                        console.warn('💡 Suggestion: Check internet connection and try refreshing the page');
+                    } else if (error.message.includes('import')) {
+                        console.warn('💡 Suggestion: Firebase CDN might be blocked or unavailable');
+                    } else {
+                        console.warn('💡 Suggestion: Check Firebase project configuration and console for details');
+                    }
                     this.updateStatus('Local Storage Only', false);
                 });
                 
@@ -1648,17 +1659,19 @@
                         appId: "1:214230848269:web:61cdfdc7c1a7d89da29644"
                     };
                     
-                    // Import Firebase modules with timeout
+                    // Import Firebase modules with timeout using latest version
+                    console.log('📦 Importing Firebase modules...');
                     const importPromise = Promise.all([
-                        import('https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js'),
-                        import('https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js')
+                        import('https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js'),
+                        import('https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js')
                     ]);
                     
                     const timeoutPromise = new Promise((_, reject) => 
-                        setTimeout(() => reject(new Error('Firebase import timeout')), 10000)
+                        setTimeout(() => reject(new Error('Firebase import timeout after 15 seconds')), 15000)
                     );
                     
                     const [appModule, firestoreModule] = await Promise.race([importPromise, timeoutPromise]);
+                    console.log('✅ Firebase modules imported successfully');
                     
                     // Initialize Firebase
                     const app = appModule.initializeApp(firebaseConfig);
@@ -1671,11 +1684,16 @@
                         getDocs: firestoreModule.getDocs,
                         deleteDoc: firestoreModule.deleteDoc,
                         onSnapshot: firestoreModule.onSnapshot,
-                        serverTimestamp: firestoreModule.serverTimestamp
+                        serverTimestamp: firestoreModule.serverTimestamp,
+                        addDoc: firestoreModule.addDoc
                     };
                     
                     this.firebaseEnabled = true;
                     console.log('🔥 Firebase initialized successfully');
+                    console.log('🔗 Firebase DB instance:', this.firebaseDb);
+                    
+                    // Test Firebase connection
+                    await this.testFirebaseConnection();
                     
                     // Load data from Firebase and sync
                     await this.loadFromFirebase();
@@ -1683,8 +1701,26 @@
                     
                     return true;
                 } catch (error) {
-                    console.warn('⚠️ Firebase initialization failed:', error);
+                    console.error('❌ Firebase initialization failed:', error);
+                    console.error('Error details:', error.message);
                     this.firebaseEnabled = false;
+                    throw error;
+                }
+            }
+            
+            async testFirebaseConnection() {
+                try {
+                    console.log('🧪 Testing Firebase connection...');
+                    const { collection, getDocs } = this.firebaseModules;
+                    
+                    // Try to access a collection (this will create it if it doesn't exist)
+                    const testCollection = collection(this.firebaseDb, 'connectionTest');
+                    const testSnapshot = await getDocs(testCollection);
+                    
+                    console.log('✅ Firebase connection test successful');
+                    return true;
+                } catch (error) {
+                    console.error('❌ Firebase connection test failed:', error);
                     throw error;
                 }
             }
@@ -1791,12 +1827,13 @@
             
             async saveToFirebase(collection, item) {
                 if (!this.firebaseEnabled || !this.isOnline) {
-                    // Queue for later sync
+                    console.log(`⚠️ Queueing ${collection}/${item.id} for later sync (Firebase: ${this.firebaseEnabled}, Online: ${this.isOnline})`);
                     this.syncQueue.push({ collection, item, action: 'save' });
                     return false;
                 }
                 
                 try {
+                    console.log(`🔄 Saving to Firebase: ${collection}/${item.id}`);
                     const { doc, setDoc, serverTimestamp } = this.firebaseModules;
                     
                     const firebaseData = {
@@ -1805,14 +1842,23 @@
                         firebaseTimestamp: serverTimestamp()
                     };
                     
+                    console.log('📝 Firebase data to save:', firebaseData);
+                    
                     const docRef = doc(this.firebaseDb, collection, item.id.toString());
+                    console.log('📍 Document reference:', docRef);
+                    
                     await setDoc(docRef, firebaseData, { merge: true });
                     
-                    console.log(`🔥 Saved to Firebase: ${collection}/${item.id}`);
+                    console.log(`✅ Successfully saved to Firebase: ${collection}/${item.id}`);
                     return true;
                 } catch (error) {
-                    console.error(`❌ Error saving to Firebase:`, error);
+                    console.error(`❌ Error saving to Firebase (${collection}/${item.id}):`, error);
+                    console.error('Error name:', error.name);
+                    console.error('Error message:', error.message);
+                    console.error('Error code:', error.code);
+                    
                     // Queue for retry
+                    console.log(`📤 Queueing ${collection}/${item.id} for retry`);
                     this.syncQueue.push({ collection, item, action: 'save' });
                     return false;
                 }
@@ -2074,6 +2120,8 @@
                 const statusTextElement = document.getElementById('datastore-status-text');
                 const firebaseStatusElement = document.getElementById('firebase-status');
                 
+                console.log(`📊 Status update: ${message} (Error: ${isError})`);
+                
                 if (statusElement) {
                     statusElement.textContent = `📊 ${message}`;
                     statusElement.className = `datastore-status ${isError ? 'error' : ''}`;
@@ -2085,17 +2133,24 @@
                 }
                 
                 if (firebaseStatusElement) {
-                    if (message.includes('Firebase')) {
-                        firebaseStatusElement.textContent = this.firebaseEnabled ? 'Connected' : 'Unavailable';
-                        firebaseStatusElement.style.color = this.firebaseEnabled ? '#28a745' : '#dc3545';
+                    if (this.firebaseEnabled) {
+                        firebaseStatusElement.textContent = 'Connected ✅';
+                        firebaseStatusElement.style.color = '#28a745';
+                    } else {
+                        firebaseStatusElement.textContent = 'Unavailable ❌';
+                        firebaseStatusElement.style.color = '#dc3545';
                     }
                 }
                 
-                // Reset status after 3 seconds
-                if (message !== 'Ready') {
+                // Reset status after 5 seconds for temporary messages
+                if (message !== 'Ready' && !message.includes('Firebase Ready') && !message.includes('Local Storage Only')) {
                     setTimeout(() => {
-                        this.updateStatus('Ready', false);
-                    }, 3000);
+                        if (this.firebaseEnabled) {
+                            this.updateStatus('Firebase Ready', false);
+                        } else {
+                            this.updateStatus('Local Storage Only', false);
+                        }
+                    }, 5000);
                 }
             }
             
@@ -2641,14 +2696,33 @@
         async function checkFirebaseHealth() {
             const stats = datastore.getStats();
             
+            // Enhanced diagnostic information
+            let diagnostics = '';
+            
+            try {
+                // Test basic connectivity
+                if (datastore.firebaseEnabled) {
+                    const { collection, getDocs } = datastore.firebaseModules;
+                    const testCol = collection(datastore.firebaseDb, 'healthCheck');
+                    await getDocs(testCol);
+                    diagnostics += '✅ Firebase connection test: PASSED\n';
+                } else {
+                    diagnostics += '❌ Firebase connection test: FAILED\n';
+                }
+            } catch (error) {
+                diagnostics += `❌ Firebase connection test: ERROR - ${error.message}\n`;
+            }
+            
             const healthReport = `
 🏥 FIREBASE & DATASTORE HEALTH REPORT
 ═══════════════════════════════════
 
-🔥 Firebase: ${stats.firebaseEnabled ? '✅ Connected' : '❌ Unavailable'}
+🔥 Firebase Status: ${stats.firebaseEnabled ? '✅ Connected & Ready' : '❌ Unavailable'}
 📊 Local Storage: ✅ Working
 🌐 Network: ${stats.isOnline ? '✅ Online' : '❌ Offline'}
 🔄 Pending Sync: ${stats.pendingSync} items
+
+${diagnostics}
 
 📈 DATA SUMMARY:
 • Libby's Poetry: ${stats.poetryEntries} entries
@@ -2660,13 +2734,30 @@
 🕒 Last Modified: ${new Date(stats.lastModified).toLocaleString()}
 📦 Version: ${stats.version}
 
-${stats.firebaseEnabled ? 
-    '✅ Firebase connected - true multi-storage capability active!' : 
-    '⚠️ Firebase unavailable - running in localStorage mode with auto-sync when reconnected'
-}
+🔧 TROUBLESHOOTING:
+${!stats.firebaseEnabled ? `
+⚠️ Firebase is not connected. Possible issues:
+1. Check browser console for detailed error messages
+2. Verify Firebase project configuration
+3. Ensure Firestore is enabled in Firebase Console
+4. Check if running on HTTPS (required for Firebase)
+5. Verify API keys and project settings
+6. Check for browser extensions blocking requests
+
+Running in localStorage-only mode with auto-sync when Firebase reconnects.
+` : '✅ Firebase connected - true multi-storage capability active!'}
+
+💡 TIP: Open browser console (F12) to see detailed Firebase logs.
             `.trim();
             
             alert(healthReport);
+            
+            // Also log detailed info to console
+            console.log('🏥 FIREBASE HEALTH CHECK');
+            console.log('Firebase enabled:', stats.firebaseEnabled);
+            console.log('Firebase DB instance:', datastore.firebaseDb);
+            console.log('Firebase modules:', datastore.firebaseModules);
+            console.log('Sync queue:', datastore.syncQueue);
         }
         
         function exportData() {
@@ -2686,6 +2777,46 @@ ${stats.firebaseEnabled ?
             }
         }
         
+        async function testFirebaseWrite() {
+            if (!datastore.firebaseEnabled) {
+                alert('❌ Firebase is not connected. Cannot test write operation.');
+                return;
+            }
+            
+            try {
+                console.log('🧪 Testing Firebase write operation...');
+                
+                const testData = {
+                    id: 'test_' + Date.now(),
+                    title: 'Firebase Test Entry',
+                    content: 'This is a test entry to verify Firebase is working correctly.',
+                    author: 'System Test',
+                    createdAt: Date.now(),
+                    modifiedAt: Date.now()
+                };
+                
+                const result = await datastore.create('testEntries', testData);
+                
+                if (result.success && result.synced) {
+                    alert('✅ Firebase write test SUCCESSFUL!\n\nTest data was successfully written to Firestore. Your Firebase connection is working properly.');
+                    
+                    // Clean up test data
+                    setTimeout(async () => {
+                        await datastore.delete('testEntries', testData.id);
+                        console.log('🧹 Test data cleaned up');
+                    }, 2000);
+                } else if (result.success && !result.synced) {
+                    alert('⚠️ Firebase write test PARTIAL SUCCESS!\n\nData was saved locally but not synced to Firebase. This suggests a connection or permission issue.');
+                } else {
+                    alert('❌ Firebase write test FAILED!\n\nError: ' + (result.error || 'Unknown error'));
+                }
+                
+            } catch (error) {
+                console.error('❌ Firebase write test error:', error);
+                alert('❌ Firebase write test FAILED!\n\nError: ' + error.message);
+            }
+        }
+        
         async function syncToFirebase() {
             if (!datastore.firebaseEnabled) {
                 alert('⚠️ Firebase is not available. Cannot sync.');
@@ -2693,10 +2824,12 @@ ${stats.firebaseEnabled ?
             }
             
             try {
+                console.log('🔄 Starting manual Firebase sync...');
                 await datastore.syncPendingChanges();
                 alert('✅ Manual Firebase sync completed!');
                 updateAdminStats();
             } catch (error) {
+                console.error('❌ Sync failed:', error);
                 alert('❌ Sync failed: ' + error.message);
             }
         }
@@ -2715,6 +2848,9 @@ ${stats.firebaseEnabled ?
 
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('🌸 Libby\'s Poetry Garden - Firebase Enhanced Version Initializing...');
+            console.log('🔧 Debug mode: Detailed Firebase logging enabled');
+            console.log('🌐 Current URL:', window.location.href);
+            console.log('🔒 Protocol:', window.location.protocol);
             
             // Wait a moment for datastore to initialize
             setTimeout(() => {
@@ -2726,7 +2862,14 @@ ${stats.firebaseEnabled ?
                 if (introText) document.getElementById('intro-text').textContent = introText;
                 
                 console.log('✅ Initial content loaded');
-            }, 1000);
+                console.log('🔥 Firebase status:', datastore.firebaseEnabled ? 'ENABLED' : 'DISABLED');
+                console.log('📊 Local storage status: ENABLED');
+                
+                if (!datastore.firebaseEnabled) {
+                    console.warn('⚠️ Firebase not available - running in localStorage-only mode');
+                    console.warn('💡 Check the browser console above for Firebase initialization errors');
+                }
+            }, 2000); // Increased timeout to allow Firebase more time to initialize
             
             // ==================== FORM EVENT LISTENERS ====================
             
