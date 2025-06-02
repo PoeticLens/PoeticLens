@@ -2506,15 +2506,32 @@
                 
                 try {
                     console.log(`🔄 Saving to Firebase: ${collection}/${item.id}`);
+                    
+                    // Prepare data for Firestore (handle large images, etc.)
+                    const preparedData = await prepareDataForFirestore(item);
+                    console.log(`📦 Data prepared for Firestore. Image included: ${!!preparedData.image}`);
+                    
                     const { doc, setDoc, serverTimestamp } = this.firebaseModules;
                     
                     const firebaseData = {
-                        ...item,
+                        ...preparedData,
                         lastModified: Date.now(),
                         firebaseTimestamp: serverTimestamp()
                     };
                     
-                    console.log('📝 Firebase data to save:', firebaseData);
+                    // Log data size for debugging
+                    const dataString = JSON.stringify(firebaseData);
+                    const dataSizeKB = (new Blob([dataString]).size) / 1024;
+                    console.log(`📏 Total document size: ${dataSizeKB.toFixed(2)} KB`);
+                    
+                    if (dataSizeKB > 1000) {
+                        console.error(`🚨 Document too large for Firestore! Size: ${dataSizeKB.toFixed(2)} KB (max: 1MB)`);
+                        // Remove image if document is still too large
+                        delete firebaseData.image;
+                        firebaseData.imageError = 'Image removed due to size constraints';
+                        console.log(`🔧 Removed image, new size: ${(new Blob([JSON.stringify(firebaseData)]).size / 1024).toFixed(2)} KB`);
+                    }
+                    
                     console.log('🏗️ Target collection:', collection);
                     console.log('🆔 Document ID:', item.id.toString());
                     
@@ -2530,6 +2547,8 @@
                         console.log('  🎯 Collection type:', typeof collection);
                         console.log('  🎯 Document ID:', JSON.stringify(item.id.toString()));
                         console.log('  🎯 Full path will be:', `${collection}/${item.id.toString()}`);
+                        console.log('  🎯 Has image:', !!firebaseData.image);
+                        console.log('  🎯 Document size:', dataSizeKB.toFixed(2), 'KB');
                         console.log('  🎯 Firebase DB instance:', this.firebaseDb);
                         console.log('  🎯 Doc function:', typeof doc);
                         console.log('  🎯 SetDoc function:', typeof setDoc);
@@ -2548,7 +2567,13 @@
                             const verifyDoc = await getDoc(docRef);
                             if (verifyDoc.exists()) {
                                 console.log('✅ VERIFIED: Document exists in poetryEntries collection');
-                                console.log('📄 Document data:', verifyDoc.data());
+                                const docData = verifyDoc.data();
+                                console.log('📄 Document data:', {
+                                    title: docData.title,
+                                    author: docData.author,
+                                    hasImage: !!docData.image,
+                                    hasImageError: !!docData.imageError
+                                });
                             } else {
                                 console.error('❌ VERIFICATION FAILED: Document does not exist after creation');
                             }
@@ -2571,12 +2596,14 @@
                         console.error('  🚨 This error occurred while trying to save to poetryEntries');
                         console.error('  🚨 Check if there are Firebase security rules preventing writes to this collection');
                         console.error('  🚨 Check if the collection name has any special restrictions');
+                        console.error('  🚨 Document might be too large for Firestore (1MB limit)');
                         console.error('  🚨 Error details:', {
                             name: error.name,
                             message: error.message,
                             code: error.code,
                             collection: collection,
-                            itemId: item.id
+                            itemId: item.id,
+                            hasImage: !!item.image
                         });
                     }
                     
@@ -3122,13 +3149,127 @@
             document.getElementById('notification').classList.remove('show');
         }
 
-        function convertImageToBase64(file) {
+        function convertImageToBase64(file, maxSizeKB = 800) {
             return new Promise((resolve, reject) => {
+                // Check file size first
+                const fileSizeKB = file.size / 1024;
+                console.log(`🖼️ Image file size: ${fileSizeKB.toFixed(2)} KB`);
+                
+                if (fileSizeKB > maxSizeKB) {
+                    console.log(`⚠️ Image too large (${fileSizeKB.toFixed(2)} KB > ${maxSizeKB} KB), will compress...`);
+                }
+                
                 const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
+                reader.onload = () => {
+                    const result = reader.result;
+                    const resultSizeKB = (result.length * 0.75) / 1024; // Approximate base64 size
+                    console.log(`📏 Base64 size: ${resultSizeKB.toFixed(2)} KB`);
+                    
+                    if (resultSizeKB > maxSizeKB) {
+                        console.log(`🔧 Compressing image from ${resultSizeKB.toFixed(2)} KB to under ${maxSizeKB} KB...`);
+                        compressImage(result, maxSizeKB).then(resolve).catch(reject);
+                    } else {
+                        console.log(`✅ Image size acceptable: ${resultSizeKB.toFixed(2)} KB`);
+                        resolve(result);
+                    }
+                };
                 reader.onerror = reject;
                 reader.readAsDataURL(file);
             });
+        }
+        
+        function compressImage(base64String, maxSizeKB = 800) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Calculate new dimensions to reduce file size
+                    let { width, height } = img;
+                    const maxDimension = 1200; // Max width or height
+                    
+                    if (width > height && width > maxDimension) {
+                        height = (height * maxDimension) / width;
+                        width = maxDimension;
+                    } else if (height > maxDimension) {
+                        width = (width * maxDimension) / height;
+                        height = maxDimension;
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    
+                    // Draw and compress
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Try different quality levels until we get under the size limit
+                    let quality = 0.8;
+                    let compressedBase64;
+                    let attempts = 0;
+                    const maxAttempts = 5;
+                    
+                    const tryCompress = () => {
+                        compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+                        const compressedSizeKB = (compressedBase64.length * 0.75) / 1024;
+                        
+                        console.log(`🔧 Compression attempt ${attempts + 1}: ${compressedSizeKB.toFixed(2)} KB at quality ${quality}`);
+                        
+                        if (compressedSizeKB <= maxSizeKB || attempts >= maxAttempts || quality <= 0.1) {
+                            console.log(`✅ Image compressed to ${compressedSizeKB.toFixed(2)} KB`);
+                            resolve(compressedBase64);
+                        } else {
+                            quality -= 0.15;
+                            attempts++;
+                            tryCompress();
+                        }
+                    };
+                    
+                    tryCompress();
+                };
+                img.onerror = reject;
+                img.src = base64String;
+            });
+        }
+        
+        async function prepareDataForFirestore(data) {
+            const prepared = { ...data };
+            
+            // Check if image exists and is large
+            if (prepared.image) {
+                const imageSizeKB = (prepared.image.length * 0.75) / 1024;
+                console.log(`📊 Checking image size: ${imageSizeKB.toFixed(2)} KB`);
+                
+                // If image is too large for Firestore (approaching 1MB limit)
+                if (imageSizeKB > 800) {
+                    console.log(`⚠️ Image too large for Firestore (${imageSizeKB.toFixed(2)} KB), compressing...`);
+                    try {
+                        prepared.image = await compressImage(prepared.image, 700);
+                        const newSizeKB = (prepared.image.length * 0.75) / 1024;
+                        console.log(`✅ Image compressed to ${newSizeKB.toFixed(2)} KB`);
+                    } catch (error) {
+                        console.error('❌ Image compression failed:', error);
+                        // Remove image if compression fails
+                        delete prepared.image;
+                        prepared.imageError = 'Image too large and compression failed';
+                    }
+                }
+            }
+            
+            // Ensure all required fields are present and valid
+            if (!prepared.id) {
+                prepared.id = Date.now();
+            }
+            
+            if (!prepared.createdAt) {
+                prepared.createdAt = Date.now();
+            }
+            
+            if (!prepared.modifiedAt) {
+                prepared.modifiedAt = Date.now();
+            }
+            
+            return prepared;
         }
 
         function handleImagePreview(event, previewId) {
