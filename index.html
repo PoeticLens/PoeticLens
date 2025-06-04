@@ -1809,6 +1809,16 @@
         Welcome to Poetic Lens - Where Nature Meets Words
     </div>
 
+    <!-- Notification System -->
+    <div id="notification" class="notification">
+        <div class="notification-title" id="notification-title">
+            <span id="notification-title-text">Poetry Added!</span>
+        </div>
+        <div class="notification-content" id="notification-content">
+            Your poem has been added to the collection.
+        </div>
+    </div>
+
     <!-- Datastore Status -->
     <div id="datastore-status" class="datastore-status">
         📊 Initializing...
@@ -1822,13 +1832,18 @@
                 <h1 class="intro-title" style="color: white;" style="font-size: 56px;">Libby Nessworthy</h1>
                 <h2 class="intro-subtitle" style="color: white;" style="font-size: 46px;">Poet of Nature & Love</h2>
                 <div class="intro-text" id="intro-text" style="color: white;" style="font-size: 36px;">
-                       
+                    Welcome to my poetic sanctuary where the whispers of nature dance with the melodies of love. I am Libby Nessworthy, a passionate poet who finds inspiration in the rustling leaves, blooming flowers, and the eternal dance between earth and heart.
+
+                    My journey began in the quiet moments of dawn, when dewdrops held the secrets of the universe, and in the gentle embrace of twilight, where love stories are written in starlight. Each poem is a bridge between the natural world and the depths of human emotion.
+
+                    Here, you'll discover verses that celebrate the changing seasons of both nature and the heart, exploring how love grows like wildflowers and how our souls mirror the rhythms of the earth. Join me in this garden of words where every stanza blooms with authenticity and wonder.
                 </div>
             </div>
         </div>
 
         <!-- Poetry Book Page -->
         <div id="book" class="page">
+            <!-- Poetic Lens Poetry Book Display -->
             <div class="book-container">
                 <div class="book" id="poetry-book" onclick="toggleBook('poetry-book')">
                     <div class="book-cover">
@@ -1842,6 +1857,11 @@
                         <!-- Poetry entries will be populated here -->
                     </div>
                 </div>
+            </div>
+
+            <!-- Poetry Grid View -->
+            <div class="poetry-grid" id="libby-poetry-grid">
+                <!-- Libby's poetry cards will be populated here -->
             </div>
         </div>
 
@@ -1887,6 +1907,7 @@
                 </form>
             </div>
 
+            <!-- Community Poetry Book Display -->
             <div class="book-container">
                 <div class="book" id="user-poetry-book" onclick="toggleBook('user-poetry-book')">
                     <div class="book-cover">
@@ -2096,41 +2117,6 @@
                             </button>
                             <button class="admin-btn" style="background: #fd7e14; color: white;" onclick="forceCreatePoetryCollection()">
                                 🔨 Force Create Poetry Collection
-                            </button>
-                        </div>
-                    </div>
-                        <div style="background: #333; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.9rem;">
-                            <div>🔥 Firebase: <span id="firebase-status" style="color: #ffc107;">Connecting...</span></div>
-                            <div>📊 Local Storage: <span style="color: #28a745;">Active</span></div>
-                            <div>🌐 Network: <span id="network-status" style="color: #28a745;">Online</span></div>
-                            <div style="margin: 0.5rem 0; border-top: 1px solid #555; padding-top: 0.5rem;">
-                                <div>📁 Libby Poetry: <span id="datastore-libby-count">0</span> entries</div>
-                                <div>🌸 Community Poetry: <span id="datastore-community-count">0</span> entries</div>
-                                <div>🛍️ Shop Items: <span id="datastore-shop-count">0</span> entries</div>
-                                <div>⚙️ Settings: <span id="datastore-settings-count">0</span> configurations</div>
-                            </div>
-                            <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #555;">
-                                <strong>Status: <span id="datastore-status-text" style="color: #28a745;">Ready</span></strong>
-                            </div>
-                        </div>
-                        <div style="margin-top: 1rem;">
-                            <button class="admin-btn" style="background: #17a2b8; color: white;" onclick="checkFirebaseHealth()">
-                                🏥 Check Firebase Health
-                            </button>
-                            <button class="admin-btn" style="background: #6f42c1; color: white;" onclick="exportData()">
-                                📤 Export Data
-                            </button>
-                            <button class="admin-btn" style="background: #fd7e14; color: white;" onclick="syncToFirebase()">
-                                🔄 Force Firebase Sync
-                            </button>
-                            <button class="admin-btn" style="background: #28a745; color: white;" onclick="testFirebaseWrite()">
-                                🧪 Test Firebase Write
-                            </button>
-                            <button class="admin-btn" style="background: #ffc107; color: #212529;" onclick="testLibbyPoetryWrite()">
-                                📖 Test Libby's Poetry
-                            </button>
-                            <button class="admin-btn" style="background: #17a2b8; color: white;" onclick="testCommunityPoetryWrite()">
-                                🌸 Test Community Poetry
                             </button>
                         </div>
                     </div>
@@ -2843,7 +2829,7 @@
                         }
                     ],
                     settings: {
-                        announcement: "Welcome to Libby's Poetry Garden - Where Nature Meets Words 🌸",
+                        announcement: "Welcome to Poetic Lens - Where Nature Meets Words 🌸",
                         introText: "Welcome to my poetic sanctuary where the whispers of nature dance with the melodies of love. I am Libby Nessworthy, a passionate poet who finds inspiration in the rustling leaves, blooming flowers, and the eternal dance between earth and heart.\n\nMy journey began in the quiet moments of dawn, when dewdrops held the secrets of the universe, and in the gentle embrace of twilight, where love stories are written in starlight. Each poem is a bridge between the natural world and the depths of human emotion.\n\nHere, you'll discover verses that celebrate the changing seasons of both nature and the heart, exploring how love grows like wildflowers and how our souls mirror the rhythms of the earth. Join me in this garden of words where every stanza blooms with authenticity and wonder."
                     },
                     cooldownUsers: {}
@@ -2957,6 +2943,7 @@
             // Handle specific page logic
             if (pageId === 'book') {
                 populateBook();
+                populateLibbyPoetryGrid();
             } else if (pageId === 'user-book') {
                 populateUserBook();
                 populatePoetryGrid();
@@ -2985,13 +2972,52 @@
             
             if (result.success) {
                 bookContent.innerHTML = result.data.map(entry => `
-                    <div class="poetry-entry">
+                    <div class="poetry-entry" id="libby-poem-${entry.id}">
                         <div class="poetry-title">${entry.title}</div>
                         ${entry.image ? `<img src="${entry.image}" alt="${entry.title}" class="poetry-image" onerror="this.style.display='none'">` : ''}
                         <div class="poetry-content">${entry.content}</div>
                         <div class="poetry-author">~ ${entry.author}</div>
                     </div>
                 `).join('');
+            }
+        }
+
+        function populateLibbyPoetryGrid() {
+            const poetryGrid = document.getElementById('libby-poetry-grid');
+            const result = datastore.read('poetryEntries');
+            
+            if (result.success) {
+                const entries = result.data;
+                if (entries.length === 0) {
+                    poetryGrid.innerHTML = `
+                        <div class="poetry-card">
+                            <div class="poetry-card-header">
+                                <div>
+                                    <h3 class="poetry-card-title">No Poetry Yet</h3>
+                                    <div class="poetry-card-author">Libby Nessworthy Collection</div>
+                                </div>
+                            </div>
+                            <div class="poetry-card-content">
+                                Welcome to Libby's poetry collection. New poems will appear here as they are added to the archive.
+                            </div>
+                            <div class="poetry-card-date">Awaiting new poetry...</div>
+                        </div>
+                    `;
+                } else {
+                    poetryGrid.innerHTML = entries.map(entry => `
+                        <div class="poetry-card" onclick="viewLibbyPoetryInBook(${entry.id})">
+                            <div class="poetry-card-header">
+                                <div>
+                                    <h3 class="poetry-card-title">${entry.title}</h3>
+                                    <div class="poetry-card-author">by ${entry.author}</div>
+                                </div>
+                                ${entry.image ? `<img src="${entry.image}" alt="${entry.title}" class="poetry-card-image" onerror="this.style.display='none'">` : ''}
+                            </div>
+                            <div class="poetry-card-content">${entry.content.substring(0, 200)}${entry.content.length > 200 ? '...' : ''}</div>
+                            <div class="poetry-card-date">${entry.createdAt ? new Date(entry.createdAt).toLocaleDateString() : 'Classic collection'}</div>
+                        </div>
+                    `).join('');
+                }
             }
         }
 
@@ -3099,6 +3125,24 @@
             
             setTimeout(() => {
                 const poemElement = document.getElementById(`poem-${poetryId}`);
+                if (poemElement) {
+                    poemElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    poemElement.style.background = 'rgba(125, 211, 252, 0.3)';
+                    setTimeout(() => {
+                        poemElement.style.background = 'rgba(125, 211, 252, 0.1)';
+                    }, 2000);
+                }
+            }, 800);
+        }
+
+        function viewLibbyPoetryInBook(poetryId) {
+            const book = document.getElementById('poetry-book');
+            if (!book.classList.contains('open')) {
+                book.classList.add('open');
+            }
+            
+            setTimeout(() => {
+                const poemElement = document.getElementById(`libby-poem-${poetryId}`);
                 if (poemElement) {
                     poemElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     poemElement.style.background = 'rgba(125, 211, 252, 0.3)';
@@ -3278,24 +3322,6 @@
         function removeImagePreview(previewId, inputId) {
             document.getElementById(previewId).innerHTML = '';
             document.getElementById(inputId).value = '';
-        }
-
-        function checkCooldownDisplay() {
-            const poetName = document.getElementById('poet-name').value;
-            const cooldownNotice = document.getElementById('cooldown-notice');
-            const cooldownTimer = document.getElementById('cooldown-timer');
-            
-            if (poetName) {
-                const remainingMinutes = datastore.checkCooldown(poetName);
-                if (remainingMinutes > 0) {
-                    cooldownNotice.style.display = 'block';
-                    cooldownTimer.textContent = `${remainingMinutes} minutes`;
-                } else {
-                    cooldownNotice.style.display = 'none';
-                }
-            } else {
-                cooldownNotice.style.display = 'none';
-            }
         }
 
         // ==================== ADMIN FUNCTIONS ====================
@@ -3505,6 +3531,7 @@
                         populatePoetryGrid();
                     } else {
                         populateBook();
+                        populateLibbyPoetryGrid();
                     }
                     
                     const syncStatus = deleteResult.synced ? '(Deleted from Firebase)' : '(Deleted locally - will sync when online)';
@@ -3626,7 +3653,6 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
             }
         }
         
-        
         function debugCollections() {
             console.log('🔍 =================================');
             console.log('🔍 COLLECTION DEBUG INFORMATION');
@@ -3686,6 +3712,7 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                     // Update UI
                     populateAdminPanel();
                     populateBook();
+                    populateLibbyPoetryGrid();
                     populateUserBook();
                     populatePoetryGrid();
                     populateShop();
@@ -3721,6 +3748,7 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                     // Update all UI components
                     populateAdminPanel();
                     populateBook();
+                    populateLibbyPoetryGrid();
                     populateUserBook();
                     populatePoetryGrid();
                     populateShop();
@@ -3767,6 +3795,7 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                     // Update admin display
                     populateLibbyPoetryTab();
                     populateBook();
+                    populateLibbyPoetryGrid();
                     updateAdminStats();
                     
                     // Clean up test data after 3 seconds
@@ -3774,6 +3803,7 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
                         await datastore.delete('poetryEntries', testData.id);
                         populateLibbyPoetryTab();
                         populateBook();
+                        populateLibbyPoetryGrid();
                         console.log('🧹 Libby\'s poetry test data cleaned up');
                     }, 3000);
                 } else if (result.success && !result.synced) {
@@ -4435,3 +4465,5 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
     </script>
 </body>
 </html>
+                    
+                
