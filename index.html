@@ -1990,23 +1990,23 @@
             <div class="admin-panel">
                 <!-- Admin Header -->
                 <div class="admin-header">
-                    <h2>⚙️ Poetry Garden Admin Panel</h2>
+                    <h2>Administration Panel</h2>
                     <p>Professional content management with Firebase & localStorage</p>
                 </div>
                 
                 <!-- Admin Tabs -->
                 <div class="admin-tabs">
                     <button class="admin-tab active" onclick="switchAdminTab('overview', this)">
-                        <span class="tab-icon">📊</span>Overview
+                        <span class="tab-icon"></span>Overview
                     </button>
                     <button class="admin-tab" onclick="switchAdminTab('libby-poetry', this)">
-                        <span class="tab-icon">📖</span>Poetry Book
+                        <span class="tab-icon"></span>Poetry Book
                     </button>
                     <button class="admin-tab" onclick="switchAdminTab('community-poetry', this)">
-                        <span class="tab-icon">🌸</span>Community Poetry Book
+                        <span class="tab-icon"></span>Community Poetry Book
                     </button>
                     <button class="admin-tab" onclick="switchAdminTab('shop-items', this)">
-                        <span class="tab-icon">🛍️</span>Store
+                        <span class="tab-icon"></span>Store
                     </button>
                     <button class="admin-tab" onclick="switchAdminTab('settings', this)">
                         <span class="tab-icon">⚙️</span>Settings
@@ -2035,7 +2035,7 @@
                     </div>
                     
                     <div class="admin-form-section">
-                        <h4>🚀 Quick Actions</h4>
+                        <h4>Quick Actions</h4>
                         <div class="admin-buttons">
                             <button class="admin-btn" style="background: #007bff; color: white;" onclick="switchAdminTab('libby-poetry')">
                                 Add New Poem
@@ -2075,9 +2075,9 @@
                             <div>📊 Local Storage: <span style="color: #28a745;">Active</span></div>
                             <div>🌐 Network: <span id="network-status" style="color: #28a745;">Online</span></div>
                             <div style="margin: 0.5rem 0; border-top: 1px solid #555; padding-top: 0.5rem;">
-                                <div>📁 Libby Poetry: <span id="datastore-libby-count">0</span> entries</div>
-                                <div>🌸 Community Poetry: <span id="datastore-community-count">0</span> entries</div>
-                                <div>🛍️ Shop Items: <span id="datastore-shop-count">0</span> entries</div>
+                                <div>Libby Poetry: <span id="datastore-libby-count">0</span> entries</div>
+                                <div>Community Poetry: <span id="datastore-community-count">0</span> entries</div>
+                                <div>Shop Items: <span id="datastore-shop-count">0</span> entries</div>
                                 <div>⚙️ Settings: <span id="datastore-settings-count">0</span> configurations</div>
                             </div>
                             <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #555;">
@@ -2086,28 +2086,28 @@
                         </div>
                         <div style="margin-top: 1rem;">
                             <button class="admin-btn" style="background: #17a2b8; color: white;" onclick="checkFirebaseHealth()">
-                                🏥 Check Firebase Health
+                                Check Firebase Health
                             </button>
                             <button class="admin-btn" style="background: #6f42c1; color: white;" onclick="exportData()">
-                                📤 Export Data
+                                Export Data
                             </button>
                             <button class="admin-btn" style="background: #fd7e14; color: white;" onclick="syncToFirebase()">
-                                🔄 Force Firebase Sync
+                                Force Firebase Sync
                             </button>
                             <button class="admin-btn" style="background: #28a745; color: white;" onclick="testFirebaseWrite()">
-                                🧪 Test Firebase Write
+                                Test Firebase Write
                             </button>
                             <button class="admin-btn" style="background: #ffc107; color: #212529;" onclick="testLibbyPoetryWrite()">
-                                📖 Test Libby's Poetry
+                                Test Libby's Poetry
                             </button>
                             <button class="admin-btn" style="background: #17a2b8; color: white;" onclick="testCommunityPoetryWrite()">
-                                🌸 Test Community Poetry
+                                Test Community Poetry
                             </button>
                             <button class="admin-btn" style="background: #e83e8c; color: white;" onclick="checkFirebaseCollections()">
-                                🔍 Check Collections
+                                Check Collections
                             </button>
                             <button class="admin-btn" style="background: #fd7e14; color: white;" onclick="forceCreatePoetryCollection()">
-                                🔨 Force Create Poetry Collection
+                                Force Create Poetry Collection
                             </button>
                         </div>
                     </div>
@@ -2150,7 +2150,7 @@
 
                 <!-- Community Poetry Tab -->
                 <div id="admin-tab-community-poetry" class="admin-tab-content">
-                    <h4>🌸 Community Poetry Submissions</h4>
+                    <h4>Community Poetry Submissions</h4>
                     <div id="admin-community-poetry-list" class="admin-items-grid">
                         <!-- Community poetry entries -->
                     </div>
