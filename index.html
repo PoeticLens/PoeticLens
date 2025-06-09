@@ -23,28 +23,6 @@
             position: relative;
         }
 
-        body.dark-mode {
-            background: #000 !important;
-            color: #eee !important;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-            body.dark-mode .main-content,
-            body.dark-mode .poetry-entry,
-            body.dark-mode .poetry-card,
-            body.dark-mode .form-container,
-            body.dark-mode .shop-item,
-            body.dark-mode .admin-panel {
-            background: rgba(30, 30, 30, 0.95) !important;
-            color: #eee !important;
-        }
-
-            body.dark-mode nav,
-            body.dark-mode .announcement {
-            background: rgba(0, 0, 0, 0.9) !important;
-            color: #eee !important;
-        }
-
-
         body::before {
             content: '';
             position: fixed;
@@ -2974,16 +2952,10 @@
             }
         }
 
-    function toggleBook(bookId) {
-        const book = document.getElementById(bookId);
+        function toggleBook(bookId) {
+            const book = document.getElementById(bookId);
             book.classList.toggle('open');
-        // Toggle dark mode on body
-            if (book.classList.contains('open')) {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-    }
-}
+        }
 
         function populateBook() {
             const bookContent = document.getElementById('book-content');
