@@ -191,7 +191,7 @@
         /* Introduction Page */
         .intro-page {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 8rem 2rem 4rem 2rem; /* Increased top padding to push content lower */
         }
 
         .intro-title {
@@ -1222,23 +1222,25 @@
                 height: 50px;
             }
             
+            /* UPDATED: Single column navigation for mobile */
             .nav-buttons {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 0.5rem;
+                grid-template-columns: 1fr; /* Changed from 1fr 1fr to single column */
+                gap: 0.7rem;
                 width: 100%;
             }
             
             .nav-btn {
-                padding: 0.7rem 0.5rem;
-                font-size: 0.8rem;
+                padding: 1rem 0.5rem; /* Increased padding for better touch targets */
+                font-size: 0.9rem; /* Slightly larger text */
                 text-align: center;
                 justify-content: center;
-                min-height: 48px;
+                min-height: 50px; /* Increased height for better usability */
+                border-radius: 15px; /* Adjusted border radius */
             }
             
             .announcement {
-                margin-top: 140px;
+                margin-top: 200px; /* Adjusted for increased nav height with single column */
                 padding: 0.7rem;
                 font-size: 0.9rem;
             }
@@ -1249,8 +1251,9 @@
                 border-radius: 10px;
             }
             
+            /* UPDATED: Adjusted intro positioning for mobile */
             .intro-page {
-                padding: 2rem 1rem;
+                padding: 4rem 1rem 2rem 1rem; /* Reduced top padding for mobile */
             }
             
             .intro-title {
@@ -1376,7 +1379,7 @@
             
             .notification {
                 right: 10px;
-                top: 150px;
+                top: 220px; /* Adjusted for new nav height */
                 max-width: calc(100vw - 20px);
                 left: 10px;
                 right: 10px;
@@ -1439,6 +1442,10 @@
             .main-content {
                 padding: 1.5rem;
                 margin-top: 1rem;
+            }
+            
+            .intro-page {
+                padding: 6rem 2rem 3rem 2rem; /* Adjusted for tablet */
             }
             
             .intro-title {
@@ -1754,6 +1761,7 @@
     </style>
 </head>
 <body>
+    <!-- Rest of the HTML content remains the same as the original -->
     <!-- Floating elements -->
     <div class="floating-elements">
         <div class="floating-leaf leaf1" style="left: 5%; top: 10%; animation-delay: 0s;"></div>
@@ -1831,11 +1839,16 @@
                 <h1 class="intro-title" style="color: #010807;" style="font-size: 56px;">Libby Nessworthy</h1>
                 <h2 class="intro-subtitle" style="color: #010807;" style="font-size: 46px;">Poet of Nature & Love</h2>
                 <div class="intro-text" id="intro-text" style="color: white;" style="font-size: 36px;">
-                ...
+                Welcome to my poetic sanctuary where the whispers of nature dance with the melodies of love. I am Libby Nessworthy, a passionate poet who finds inspiration in the rustling leaves, blooming flowers, and the eternal dance between earth and heart.
+
+My journey began in the quiet moments of dawn, when dewdrops held the secrets of the universe, and in the gentle embrace of twilight, where love stories are written in starlight. Each poem is a bridge between the natural world and the depths of human emotion.
+
+Here, you'll discover verses that celebrate the changing seasons of both nature and the heart, exploring how love grows like wildflowers and how our souls mirror the rhythms of the earth. Join me in this garden of words where every stanza blooms with authenticity and wonder.
                 </div>
             </div>
         </div>
 
+        <!-- All other page content remains the same as the original -->
         <!-- Poetry Book Page -->
         <div id="book" class="page">
             <!-- Poetic Lens Poetry Book Display -->
@@ -3319,6 +3332,24 @@
             document.getElementById(inputId).value = '';
         }
 
+        function checkCooldownDisplay() {
+            const poetName = document.getElementById('poet-name').value;
+            const cooldownNotice = document.getElementById('cooldown-notice');
+            const cooldownTimer = document.getElementById('cooldown-timer');
+            
+            if (poetName) {
+                const remainingMinutes = datastore.checkCooldown(poetName);
+                if (remainingMinutes > 0) {
+                    cooldownTimer.textContent = `${remainingMinutes} minutes`;
+                    cooldownNotice.style.display = 'block';
+                } else {
+                    cooldownNotice.style.display = 'none';
+                }
+            } else {
+                cooldownNotice.style.display = 'none';
+            }
+        }
+
         // ==================== ADMIN FUNCTIONS ====================
 
         function switchAdminTab(tabName, element) {
@@ -4459,4 +4490,4 @@ Running in localStorage-only mode with auto-sync when Firebase reconnects.
         });
     </script>
 </body>
-</html>             
+</html>
